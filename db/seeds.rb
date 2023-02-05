@@ -19,7 +19,7 @@ puts "destroying user database"
 User.destroy_all
 
 puts "creating user database"
-8.times do |u|
+20.times do |u|
   user = User.new(
     first_name: data['name']['first'],
     last_name: data['name']['last'],
@@ -40,7 +40,7 @@ puts "destroying venue database"
 Venue.destroy_all
 
 puts "creating venue database"
-12.times do |v|
+15.times do |v|
   venue = Venue.new(
     name: venue_name[rand(1..30)]["company"]["name"],
     price_per_day: rand(50..100),
