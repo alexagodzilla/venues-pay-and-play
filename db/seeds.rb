@@ -41,10 +41,12 @@ end
 puts "user database seeded"
 
 #-----VENUE SEEDING-----
-new_user_id = 1
+# new_user_id = 1
 
 puts "creating venue database"
 15.times do |v|
+  user = User.first
+  puts user
   venue_name = fetch_data("https://dummyjson.com/users")["users"][rand(1..30)]["company"]["name"]
   puts venue_name
   venue_description = fetch_data("https://dummyjson.com/posts")["posts"][rand(7..24)]["body"]
@@ -54,10 +56,10 @@ puts "creating venue database"
     location: "#{data['location']['street']['name']}, #{data['location']['city']}",
     size_of_band: rand(1..7),
     description: venue_description,
-    user_id: new_user_id
   )
-  new_user_id += 1
-  venue.save
+  venue.user = user
+  # new_user_id += 1
+  venue.save!
   puts "added venue #{v}"
 end
 
