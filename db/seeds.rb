@@ -6,49 +6,67 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-# require 'open-uri'
-# require 'json'
+# The API logic below almost works but generates a lot of identical records, and all the addresses are the same. If there is a missing field the database seeding crashes. I think this could perhaps be fixed but for now, to reach MVP i agree t just use faker.
 
-# data = JSON.parse(URI.open("https://randomuser.me/api/?results=15&nat=gb").read)["results"][0]
-# venue_description = JSON.parse(URI.open("https://dummyjson.com/posts").read)["posts"]
-# venue_name = JSON.parse(URI.open("https://dummyjson.com/users").read)["users"]
+require 'open-uri'
+require 'json'
 
-# #-----USER SEEDING-----
-# puts "destroying user database"
-# User.destroy_all
+def fetch_data(url)
+  JSON.parse(URI.open(url).read)
+end
 
-# puts "creating user database"
-# 20.times do
-#   user = User.new(
-#     first_name: data['name']['first'],
-#     last_name: data['name']['last'],
-#     email: data['email'],
-#     password: "banana"
-#   )
-#   user.save
-# end
+data = fetch_data("https://randomuser.me/api/?results=15&nat=gb")["results"].sample
 
-# puts "user database seeded"
+venue_description = fetch_data("https://dummyjson.com/posts")["posts"]
+venue_name = fetch_data("https://dummyjson.com/users")["users"]
 
-# #-----VENUE SEEDING-----
+#-----CLEANING DB-----
+puts "destroying venue database"
+Venue.destroy_all
+
+puts "destroying user database"
+User.destroy_all
+
+puts "creating user database"
+20.times do |u|
+  data = fetch_data("https://randomuser.me/api/?results=15&nat=gb")["results"][0]
+  user = User.new(
+    first_name: data['name']['first'],
+    last_name: data['name']['last'],
+    email: data['email'],
+    password: "banana",
+  )
+  user.save
+  puts "added user #{u}"
+end
+
+puts "user database seeded"
+
+#-----VENUE SEEDING-----
 # new_user_id = 1
 
-# puts "destroying venue database"
-# Venue.destroy_all
+puts "creating venue database"
+15.times do |v|
+  user = User.all.sample
+  venue_name = fetch_data("https://dummyjson.com/users")["users"].sample["company"]["name"]
+venue_description = fetch_data("https://dummyjson.com/posts")["posts"].sample["body"]
+data = fetch_data("https://randomuser.me/api/?results=15&nat=gb")["results"].sample
 
-# puts "creating venue database"
-# 15.times do
-#   venue = Venue.new(
-#     name: venue_name["company"]["name"],
-#     price_per_day: rand(50..100),
-#     location: "#{data['location']['street']['name']}, #{data['location']['city']}",
-#     size_of_band: rand(1..7),
-#     description: venue_description[rand(7..24)]["body"],
-#     phone_number: data['cell'],
-#     user_id: new_user_id
-#   )
-#   new_user_id += 1
-#   venue.save
-# end
+  venue = Venue.new(
+    name: venue_name,
+    price_per_day: rand(50..100),
+    location: "#{data['location']['street']['name']}, #{data['location']['city']}",
+    size_of_band: rand(1..7),
+    description: venue_description,
+  )
+  # This line is crucial to associate the venue and user and allow for venues to be persisted.
+  venue.user = user
+  puts "associating users with venues"
+  p venue.user
+  # new_user_id += 1
 
-# puts "venue database seeded"
+  venue.save!
+  puts "added venue #{v}"
+end
+
+puts "venue database seeded"
