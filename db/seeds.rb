@@ -1,17 +1,17 @@
 require 'date'
 
 #-----CLEANING DB-----
+puts "destroying review database"
+Review.destroy_all
+
+puts "destroying booking database"
+Booking.destroy_all
+
 puts "destroying venue database"
 Venue.destroy_all
 
 puts "destroying user database"
 User.destroy_all
-
-puts "destroying booking database"
-Booking.destroy_all
-
-puts "destroying review database"
-Review.destroy_all
 
 # -----------------
 
