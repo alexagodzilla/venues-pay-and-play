@@ -1,14 +1,16 @@
-# #-----CLEANING DB-----
+require 'date'
+
+#-----CLEANING DB-----
 puts "destroying venue database"
 Venue.destroy_all
 
 puts "destroying user database"
 User.destroy_all
 
-puts "destroying user database"
+puts "destroying booking database"
 Booking.destroy_all
 
-puts "destroying user database"
+puts "destroying review database"
 Review.destroy_all
 
 # -----------------
@@ -18,7 +20,7 @@ puts "creating users"
   user = User.new(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.unique.last_name,
-    email: "pnp@gmail.com",
+    email: "#{Faker::Name.first_name}@gmail.com",
     password: "banana"
   )
   user.save!
@@ -28,7 +30,7 @@ puts "creating venues"
 15.times do
   user = User.all.sample
   venue = Venue.new(
-    name: Faker::Music.album,
+    name: Faker::Kpop.iii_groups,
     price_per_day: rand(50..100),
     location: "#{Faker::Address.street_address}, #{Faker::Address.city}",
     size_of_band: rand(1..7),
@@ -38,14 +40,29 @@ puts "creating venues"
   venue.save!
 end
 
-puts "creating reviews"
-30.times do
+puts "creating bookings"
+25.times do
+  user = User.all.sample
   venue = Venue.all.sample
+  date = Date.today
+  booking = Booking.new(
+    start_date: date,
+    end_date: date + 1
+  )
+  booking.user = user
+  booking.venue = venue
+  booking.save!
+end
+
+puts "creating reviews"
+20.times do
+  booking = Booking.all.sample
   review = Review.new(
     comment: "This is a review",
     rating: rand(1..5)
   )
-  review.venue = venue
+  review.booking = booking
+  review.save!
 end
 
 # The API logic below almost works but generates a lot of identical records, and all the addresses are the same. If there is a missing field the database seeding crashes. I think this could perhaps be fixed but for now, to reach MVP i agree t just use faker.
