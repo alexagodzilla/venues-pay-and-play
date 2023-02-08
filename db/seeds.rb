@@ -1,4 +1,32 @@
 require 'date'
+require 'open-uri'
+require 'json'
+
+api_key = 'AIzaSyBhvbimgkK3MN2tHSRtpXDkLFYq91kmQHk'
+
+# we could pass other queries to this string in terms of location and search terms. I have also limited the number of results to 15.
+
+url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20London&limit=15
+  &key=#{api_key}"
+
+response = URI.open(url).read
+
+parsed_response = JSON.parse(response)
+music_venues = parsed_response['results']
+
+# For checking the response and logic
+# p music_venues.count
+
+# music_venues.each do |music_venue|
+#   puts "venue name:"
+#   puts music_venue['name']
+#   puts "-----------------------"
+#   puts "address:"
+#   puts music_venue['formatted_address']['']
+
+# end
+
+# puts music_venues.sample
 
 #-----CLEANING DB-----
 puts "destroying review database"
@@ -14,7 +42,7 @@ puts "destroying user database"
 User.destroy_all
 
 # -----------------
-
+# do we want make passwords unique?
 puts "creating users"
 20.times do
   user = User.new(
@@ -29,17 +57,23 @@ end
 puts "creating venues"
 15.times do
   user = User.all.sample
+  rehearsal_venue = music_venues.sample
   venue = Venue.new(
-    name: Faker::Kpop.iii_groups,
+    name: rehearsal_venue['name'],
     price_per_day: rand(50..100),
-    location: "#{Faker::Address.street_address}, #{Faker::Address.city}",
+    location: rehearsal_venue['formatted_address'],
     size_of_band: rand(1..7),
-    phone_number: "07#{rand(10**9)}"
+    phone_number: "07#{rand(10**9)}",
+    description: Faker::Hipster.sentences(number: 1)
   )
   venue.user = user
   venue.save!
 end
 
+# note: the api above also has google rating and opening hours, but i think we can leave these out for now.
+#in addition, the api has a geometry field which has a location field which has lat and lng fields. I think we can use this to plot the venues on a map.
+# docs https://developers.google.com/maps/documentation/places/web-service/search-text
+# it may also be able to return photos, but i think we can leave this out for now.
 puts "creating bookings"
 25.times do
   user = User.all.sample
@@ -58,7 +92,7 @@ puts "creating reviews"
 20.times do
   booking = Booking.all.sample
   review = Review.new(
-    comment: "This is a review",
+    comment: Faker::Hipster.paragraph,
     rating: rand(1..5)
   )
   review.booking = booking
@@ -129,3 +163,6 @@ end
 # end
 
 # puts "venue database seeded"
+
+# https://www.theparkstudios.com/?lightbox=dataItem-jxykp4lv
+# https://www.theparkstudios.com/live-rooms?pgid=kl6uvq44-e260e791-efe1-4831-b09b-b705eab6eff9
