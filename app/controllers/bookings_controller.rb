@@ -11,7 +11,7 @@ class BookingsController < ApplicationController
     if @booking.save
       redirect_to venue_path(@booking.venue)
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
