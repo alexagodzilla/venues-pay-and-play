@@ -163,6 +163,3 @@ end
 # end
 
 # puts "venue database seeded"
-
-# https://www.theparkstudios.com/?lightbox=dataItem-jxykp4lv
-# https://www.theparkstudios.com/live-rooms?pgid=kl6uvq44-e260e791-efe1-4831-b09b-b705eab6eff9
