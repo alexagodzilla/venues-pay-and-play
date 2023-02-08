@@ -25,7 +25,7 @@ puts "creating users"
   user = User.new(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.unique.last_name,
-    email: "#{Faker::Name.first_name}@gmail.com",
+    email: "#{Faker::Name.first_name}@#{Faker::Name.unique.last_name}.com",
     password: "banana"
   )
   user.save!
@@ -51,7 +51,7 @@ puts "creating bookings - 10 available"
 10.times do
   user = User.all.sample
   venue = Venue.all.sample
-  date = Date.today + rand(5..20)
+  date = Date.today + rand(5..25)
   booking = Booking.new(
     start_date: date,
     end_date: date + 1
