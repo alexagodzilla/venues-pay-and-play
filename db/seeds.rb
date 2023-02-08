@@ -3,30 +3,8 @@ require 'open-uri'
 require 'json'
 
 api_key = 'AIzaSyBhvbimgkK3MN2tHSRtpXDkLFYq91kmQHk'
-
-# we could pass other queries to this string in terms of location and search terms. I have also limited the number of results to 15.
-
-url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20London&limit=15
-  &key=#{api_key}"
-
-response = URI.open(url).read
-
-parsed_response = JSON.parse(response)
-music_venues = parsed_response['results']
-
-# For checking the response and logic
-# p music_venues.count
-
-# music_venues.each do |music_venue|
-#   puts "venue name:"
-#   puts music_venue['name']
-#   puts "-----------------------"
-#   puts "address:"
-#   puts music_venue['formatted_address']['']
-
-# end
-
-# puts music_venues.sample
+url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20London&limit=15&key=#{api_key}"
+music_venues = JSON.parse(URI.open(url).read)['results']
 
 #-----CLEANING DB-----
 puts "destroying review database"
@@ -42,7 +20,6 @@ puts "destroying user database"
 User.destroy_all
 
 # -----------------
-# do we want make passwords unique?
 puts "creating users"
 20.times do
   user = User.new(
@@ -64,21 +41,31 @@ puts "creating venues"
     location: rehearsal_venue['formatted_address'],
     size_of_band: rand(1..7),
     phone_number: "07#{rand(10**9)}",
-    description: Faker::Hipster.sentences(number: 1)
+    description: Faker::Hipster.paragraph
   )
   venue.user = user
   venue.save!
 end
 
-# note: the api above also has google rating and opening hours, but i think we can leave these out for now.
-#in addition, the api has a geometry field which has a location field which has lat and lng fields. I think we can use this to plot the venues on a map.
-# docs https://developers.google.com/maps/documentation/places/web-service/search-text
-# it may also be able to return photos, but i think we can leave this out for now.
-puts "creating bookings"
-25.times do
+puts "creating bookings - 10 available"
+10.times do
   user = User.all.sample
   venue = Venue.all.sample
-  date = Date.today
+  date = Date.today + rand(5..20)
+  booking = Booking.new(
+    start_date: date,
+    end_date: date + 1
+  )
+  booking.user = user
+  booking.venue = venue
+  booking.save!
+end
+
+puts "creating bookings - 5 unavailable (with same date)"
+5.times do
+  user = User.all.sample
+  venue = Venue.all.sample
+  date = Date.today + 7
   booking = Booking.new(
     start_date: date,
     end_date: date + 1
@@ -99,10 +86,30 @@ puts "creating reviews"
   review.save!
 end
 
-# The API logic below almost works but generates a lot of identical records, and all the addresses are the same. If there is a missing field the database seeding crashes. I think this could perhaps be fixed but for now, to reach MVP i agree t just use faker.
+# -------------------- Jon's comments--------------------
+# for the google API:
+# we could pass other queries to this string in terms of location and search terms. I have also limited the number of results to 15.
 
-# require 'open-uri'
-# require 'json'
+# For checking the response and logic
+# p music_venues.count
+
+# music_venues.each do |music_venue|
+#   puts "venue name:"
+#   puts music_venue['name']
+#   puts "-----------------------"
+#   puts "address:"
+#   puts music_venue['formatted_address']['']
+
+# end
+
+# puts music_venues.sample
+
+# note: the api above also has google rating and opening hours, but i think we can leave these out for now.
+# in addition, the api has a geometry field which has a location field which has lat and lng fields. I think we can use this to plot the venues on a map.
+# docs https://developers.google.com/maps/documentation/places/web-service/search-text
+# it may also be able to return photos, but i think we can leave this out for now.
+
+# previous seeding --------------------
 
 # def fetch_data(url)
 #   JSON.parse(URI.open(url).read)
