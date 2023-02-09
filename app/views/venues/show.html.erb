@@ -1,2 +1,13 @@
-<h1>Venues#show</h1>
-<p>Find me in app/views/venues/show.html.erb</p>
+<div class="container">
+  <h1>Venues#show</h1>
+  <p>Find me in app/views/venues/show.html.erb</p>
+  <h1><%= @venue.name %></h1>
+
+  <ul>
+    <li>Price per day £<%= @venue.price_per_day %>,00</li>
+    <li><%= @venue.location%></li>
+    <li>Size of band: <%= @venue.size_of_band %> lovely musicians</li>
+    <li>Description: <%= @venue.description %></li>
+  </ul>
+  <%= link_to "Back to all Venues", root_path %>
+</div>
