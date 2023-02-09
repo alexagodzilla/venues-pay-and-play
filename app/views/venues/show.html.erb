@@ -2,8 +2,8 @@
   <h1>Venues#show</h1>
   <p>Find me in app/views/venues/show.html.erb</p>
   <h1><%= @venue.name %></h1>
-    <%= cl_image_tag("pgfw7mefk6chajc7bmm6",
-      width: 400, height: 300, crop: :fill) %>
+    <%# <%= cl_image_tag("pgfw7mefk6chajc7bmm6",
+      width: 400, height: 300, crop: :fill) %> %>
   <ul>
     <li>Price per day: £<%= @venue.price_per_day %></li>
     <li>Location: <%= @venue.location%></li>
@@ -15,4 +15,5 @@
     <li>Description: <%= @venue.description %></li>
   </ul>
   <%= link_to "Back to all Venues", root_path %>
+  <%= link_to "Book Venue", new_venue_booking_path(@venue) %>
 </div>

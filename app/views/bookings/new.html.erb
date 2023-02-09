@@ -1,4 +1,4 @@
-<%= simple_form_for :bookings do |f| %>
+<%= simple_form_for [@venue, @booking] do |f| %>
   <%= f.input :start_date, :as => :date, :input_html => { :class => 'datepicker' } %>
   <%= f.input :end_date, :as => :date, :input_html => { :class => 'datepicker' }%>
   <%= f.submit "Book Venue" %>
