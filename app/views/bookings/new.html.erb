@@ -1,1 +1,7 @@
-<er>simple_form for</er>
+<%= simple_form_for :bookings do |f| %>
+  <%= f.input :start_date, :as => :date, :input_html => { :class => 'datepicker' } %>
+  <%= f.input :end_date, :as => :date, :input_html => { :class => 'datepicker' }%>
+  <%= f.submit "Book Venue" %>
+<% end %>
+
+<%# Later  i would like to update this to include a calendar to select the dates. I think tempus dominus from bootstrap may help with this or form control. I can't remember how to do this. ChatGpt had some advice. and mentioned that we could use jquery or stimulus to achieve this. in addition, we would need moment.js to format the date and tempus dominus to display the calendar. And then set up a data controller in stimulus. But we can keep it simple for now with the form above. %>
