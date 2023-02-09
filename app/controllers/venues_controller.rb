@@ -5,8 +5,10 @@ class VenuesController < ApplicationController
   end
 
   def show
-    @booking = Booking.find(params[:booking_id])
+    # @booking = Booking.find(params[:booking_id])
+    @venue = Venue.find(params[:id])
     # @booking = Booking.new
+    # @booking = @venue.bookings.find { |booking| booking.user == current_user }
     @review = Review.new
   end
 
