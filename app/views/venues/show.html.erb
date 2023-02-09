@@ -12,7 +12,7 @@
   <%= link_to "Back to all Venues", root_path %>
 </div>
 
-<%= simple_form_for [@venue, @booking, @review] do |f| %>
+<%= simple_form_for [@booking, @review] do |f| %>
   <%= f.input :comment %>
   <%= f.input :rating, collection: [1, 2, 3, 4, 5] %>
   <%= f.button :submit %>

@@ -5,7 +5,8 @@ class VenuesController < ApplicationController
   end
 
   def show
-    @booking = Booking.new
+    @booking = Booking.find(params[:booking_id])
+    # @booking = Booking.new
     @review = Review.new
   end
 
