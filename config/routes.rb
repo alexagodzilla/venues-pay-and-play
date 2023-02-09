@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   resources :venues do
     resources :booking, only: [:new, :create]
   end
-
   resources :booking, only: [:show, :edit, :update] do
     resources :review, only: [:create]
   end
