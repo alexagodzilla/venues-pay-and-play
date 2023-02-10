@@ -1,13 +1,37 @@
-<div class="row my-5">
-  <% @venues.each do |venue| %>
-    <div class="col-2 m-2">
-      <div class="card h-100" style="width: 18rem;">
-        <img src="https://images.unsplash.com/photo-1534212758080-135b3affa932?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2071&q=80" class="card-img-top" alt="...">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title"><%= link_to venue.name, venue_path(venue.id) %></h5>
-          <p class="card-text"><%= venue.description %></p>
+<div class="container">
+  <div class="row">
+    <form>
+      <label for="start" class="mt-2"><strong>Start date</strong></label>
+      <div class="col-2">
+        <input class="form-control my-2" id="start" name="start" type="date">
+      </div>
+      <label for="end"><strong>End date</strong></label>
+      <div class="col-2">
+        <input class="form-control my-2" id="end" name="end" type="date">
+      </div>
+      <button class="btn btn-success mt-2" type="submit">Search</button>
+    </form>
+  </div>
+
+  <div class="row my-5 .d-flex justify-content-center">
+    <% @venues.each do |venue| %>
+      <div class="col-3 m-2">
+        <div class="card h-100" style="width: 18rem;">
+        <%= link_to venue_path(venue), target: :_blank do %>
+          <%= image_tag "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80", class: "card-img-top" %>
+        <% end %>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title"><strong><%= link_to venue.name, venue_path(venue.id), class: "text-dark" %></strong></h5>
+            <p class="card-text"><%= venue.location %></p>
+            <p class="card-text mt-auto"><strong>£<%= venue.price_per_day %></strong> |
+            <% if venue.size_of_band == 1 %>
+              <%= venue.size_of_band %> person</p>
+            <% else %>
+              <%= venue.size_of_band %> people</p>
+            <% end %>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>

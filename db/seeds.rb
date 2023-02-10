@@ -2,9 +2,9 @@ require 'date'
 require 'open-uri'
 require 'json'
 
-api_key = 'AIzaSyBhvbimgkK3MN2tHSRtpXDkLFYq91kmQHk'
-url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20London&limit=15&key=#{api_key}"
-music_venues = JSON.parse(URI.open(url).read)['results']
+# api_key = 'AIzaSyBhvbimgkK3MN2tHSRtpXDkLFYq91kmQHk'
+# url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20London&limit=15&key=#{api_key}"
+# music_venues = JSON.parse(URI.open(url).read)['results']
 
 #-----CLEANING DB-----
 puts "destroying review database"
@@ -34,11 +34,13 @@ end
 puts "creating venues"
 15.times do
   user = User.all.sample
-  rehearsal_venue = music_venues.sample
+  # rehearsal_venue = music_venues.sample
   venue = Venue.new(
-    name: rehearsal_venue['name'],
+    name: "This is a name",
+    # name: rehearsal_venue['name'],
     price_per_day: rand(50..100),
-    location: rehearsal_venue['formatted_address'],
+    # location: rehearsal_venue['formatted_address'],
+    location: "This is an address",
     size_of_band: rand(1..7),
     phone_number: "07#{rand(10**9)}",
     description: Faker::Hipster.paragraph

@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :venues, dependent: :destroy
   has_many :bookings, dependent: :destroy
   has_many :reviews, through: :bookings
+  has_one_attached :avatar
 
   validates :first_name, :last_name, presence: true
 end
