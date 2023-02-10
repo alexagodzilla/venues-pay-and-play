@@ -1,7 +1,18 @@
 class VenuesController < ApplicationController
   before_action :set_venue, only: [:show]
   def index
-    @venues = Venue.all
+    if params[:start].present? || params[:end].present?
+      range = (params[:start].to_date..params[:end].to_date).to_a
+      @venues = []
+      Venue.all.each do |venue|
+        venue.bookings.each do |booking|
+          @venues << venue unless range.include?(booking.start_date || booking.end_date)
+        end
+      end
+      @venues
+    else
+      @venues = Venue.all
+    end
   end
 
   def show
