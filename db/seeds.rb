@@ -2,7 +2,7 @@ require 'date'
 require 'open-uri'
 require 'json'
 
-api_key = #add your google api key here as a string and uncomment this line
+api_key = 'AIzaSyBT8K8ea7m_bZfRRvbVNnyZJigwW3llnOQ'
 location = "Manchester" #change this to the location you want to search for
 
 #-----GOOGLE API-----
