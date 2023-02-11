@@ -7,7 +7,7 @@ class BookingsController < ApplicationController
 
   def show
     @booking = Booking.find(params[:id])
-    # @review = Review.new
+    @review = Review.new
   end
 
   def new
@@ -18,6 +18,7 @@ class BookingsController < ApplicationController
 
   def create
     @booking = Booking.new(booking_params)
+    @booking.confirmed = true
     @booking.user = current_user
     @booking.venue = Venue.find(params[:venue_id])
     if @booking.save!
@@ -31,6 +32,6 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:start_date, :end_date)
+    params.require(:booking).permit(:start_date, :end_date, :confirmed)
   end
 end

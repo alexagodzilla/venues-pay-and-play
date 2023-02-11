@@ -1,8 +1,8 @@
 require 'date'
 require 'open-uri'
 require 'json'
-
 api_key = 'AIzaSyBT8K8ea7m_bZfRRvbVNnyZJigwW3llnOQ'
+
 location = "Manchester" #change this to the location you want to search for
 
 #-----GOOGLE API-----
