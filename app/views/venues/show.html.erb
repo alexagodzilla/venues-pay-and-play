@@ -15,7 +15,19 @@
     <li>Description: <%= @venue.description %></li>
   </ul>
 
+
    <button class="btn btn-info mt-2" type="submit"><%= link_to "Back to all Venues", root_path %></button>
    <br>
    <button class="btn btn-success mt-2" type="submit"><%= link_to "Book Venue", new_venue_booking_path(@venue) %></button>
+
+ 
+  
+  <h3>Reviews</h3>
+  <% if @venue.reviews.present? %>
+    <% @venue.reviews.each do |venue| %>
+    <p><strong><%= venue.rating %> ⭐</strong></p>
+    <p><%= venue.comment %></p>
+    <% end %>
+ <% end %>
+
 </div>

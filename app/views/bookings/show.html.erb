@@ -1,29 +1,21 @@
-<h1>Booking Details</h1>
-
 <div class="container">
+  <h1>Booking Details</h1>
+    <h3 class="mt-3">Your booking is confirmed with <%= @booking.venue.name %></h3>
 
-  <h1><%= @booking.venue.name %></h1>
+    <ul>
+      <li>Start date: <%= @booking.start_date.strftime("%d %B %Y") %> </li>
+      <li>End date: <%= @booking.end_date.strftime("%d %B %Y") %></li>
+      <li>Total cost: £<%= (@booking.venue.price_per_day).to_i * (distance_of_time_in_words(@booking.end_date,@booking.start_date)).to_i %></li>
+      <li><%= (distance_of_time_in_words(@booking.end_date,@booking.start_date)) %></li>
+    </ul>
+  <%= link_to "Back to all venues", root_path %>
 
-  <ul>
-    <li>Status:<%= @booking.confirmed %></li>
-    <li>Start date:<%= @booking.start_date%> </li>
-    <li>End date: <%= @booking.end_date %></li>
-    <li>Total cost: £<%= (@booking.venue.price_per_day).to_i * (distance_of_time_in_words(@booking.end_date,@booking.start_date)).to_i %></li>
-    <li><%= (distance_of_time_in_words(@booking.end_date,@booking.start_date)) %></li>
+  <h1>Leave a review</h1>
 
-  </ul>
-  <%= link_to "Back to all Venues", root_path %>
-
-</div>
-
-<h1>Leave a review</h1>
-
-<div class="container">
-
-  <%= simple_form_for [@booking, @review] do |f| %>
-    <%= f.input :comment %>
-    <%= f.input :rating, collection: [1, 2, 3, 4, 5] %>
-    <%= f.button :submit %>
-  <% end %>
+    <%= simple_form_for [@booking, @review] do |f| %>
+      <%= f.input :comment %>
+      <%= f.input :rating, collection: [1, 2, 3, 4, 5] %>
+      <%= f.button :submit %>
+    <% end %>
 
 </div>
