@@ -8,7 +8,7 @@ location = "Manchester" #change this to the location you want to search for
 #-----GOOGLE API-----
 url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20#{location}&limit=15&key=#{api_key}"
 music_venues = JSON.parse(URI.open(url).read)['results']
-
+puts music_venues.first
 #-----CLEANING DB-----
 puts "destroying review database"
 Review.destroy_all
@@ -49,9 +49,9 @@ venue_images = %w(pgfw7mefk6chajc7bmm6
   qwhp5aqbuedpix7w0r4w
   j41exrcmxznuxb6zmgjj
   uh2kiuhlpqe7mkxvxtct)
-16.times do
+
+  for rehearsal_venue in music_venues do
   user = User.all.sample
-  rehearsal_venue = music_venues.sample
   venue = Venue.new(
     # name: "This is a name",
     name: rehearsal_venue['name'],
