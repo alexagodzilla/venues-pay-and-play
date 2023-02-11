@@ -1,0 +1,17 @@
+<h1>Booking Details</h1>
+
+<div class="container">
+
+  <h1><%= @booking.venue.name %></h1>
+
+  <ul>
+    <li>Status:<%= @booking.confirmed %></li>
+    <li>Start date:<%= @booking.start_date%> </li>
+    <li>End date: <%= @booking.end_date %></li>
+    <li>Total cost: £<%= (@booking.venue.price_per_day).to_i * (distance_of_time_in_words(@booking.end_date,@booking.start_date)).to_i %></li>
+    <li><%= (distance_of_time_in_words(@booking.end_date,@booking.start_date)) %></li>
+
+  </ul>
+  <%= link_to "Back to all Venues", root_path %>
+
+</div>
