@@ -1,7 +1,6 @@
 <div class="container">
-  <h1>Venues#show</h1>
-  <p>Find me in app/views/venues/show.html.erb</p>
-  <h1><%= @venue.name %></h1>
+
+  <h1 class="mt-3"><%= @venue.name %></h1>
     <%# <%= cl_image_tag("pgfw7mefk6chajc7bmm6",
       width: 400, height: 300, crop: :fill) %>
   <ul>
@@ -14,6 +13,16 @@
     <% end %>
     <li>Description: <%= @venue.description %></li>
   </ul>
-  <%= link_to "Back to all Venues", root_path %>
-  <%= link_to "Book Venue", new_venue_booking_path(@venue) %>
+  <%= link_to "Back to all venues", root_path %> <br>
+  <%= link_to "Book venue", new_venue_booking_path(@venue) %>
+  <br><br><br>
+  <h3>Reviews</h3>
+  <% if @venue.reviews.present? %>
+    <% @venue.reviews.each do |venue| %>
+    <p><strong><%= venue.rating %> ⭐</strong></p>
+    <p><%= venue.comment %></p>
+    <% end %>
+ <% end %>
+
+
 </div>

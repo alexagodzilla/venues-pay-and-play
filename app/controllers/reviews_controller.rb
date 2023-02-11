@@ -26,4 +26,3 @@ end
 
 # index/show - we show reviews on bookings show
 # new - we create a new review on the booking show
-ya
