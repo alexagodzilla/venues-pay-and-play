@@ -1,6 +1,4 @@
 class ReviewsController < ApplicationController
-  before_action :set_review, only: %i[edit update destroy]
-
   def create
     @booking = Booking.find(params[:booking_id])
     @review = Review.new(review_params)
@@ -12,19 +10,8 @@ class ReviewsController < ApplicationController
     end
   end
 
-  def edit; end
-
-  def update
-    @review.update(review_params)
-    if @review.save
-      redirect_to booking_path(@review.booking)
-      # unsure about the above line
-    else
-      redirect_to 'bookings/show', notice: "Review added."
-    end
-  end
-
   def destroy
+    @review = Review.find(params[:id])
     @review.delete
     redirect_to booking_path(@review.booking), notice: "Review deleted."
   end
@@ -33,10 +20,6 @@ class ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(:comment, :rating)
-  end
-
-  def set_review
-    @review = Review.find(params[:id])
   end
 end
 
