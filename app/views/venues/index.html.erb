@@ -20,7 +20,7 @@
       <div class="col-1 my-3">
         <div class="card h-100" style="width: 18rem;">
         <%= link_to venue_path(venue), target: :_blank do %>
-          <%= image_tag "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80", class: "card-img-top" %>
+         <%= cl_image_tag(venue.pic_url, width: 287, height: 150, crop: :thumb, gravity: :face) %>
         <% end %>
           <div class="card-body d-flex flex-column">
             <h5 class="card-title"><strong><%= link_to venue.name, venue_path(venue.id), class: "text-dark" %></strong></h5>
