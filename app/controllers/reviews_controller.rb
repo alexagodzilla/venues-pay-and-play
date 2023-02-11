@@ -1,9 +1,10 @@
 class ReviewsController < ApplicationController
   def create
     @booking = Booking.find(params[:booking_id])
+    @venue = @booking.venue
     @review = Review.new(review_params)
     @review.booking = @booking
-    if @review.save
+    if @review.save!
       redirect_to venue_path(@venue), notice: 'Review was successfully created'
     else
       render :new, status: :unprocessable_entity

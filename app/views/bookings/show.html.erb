@@ -15,3 +15,15 @@
   <%= link_to "Back to all Venues", root_path %>
 
 </div>
+
+<h1>Leave a review</h1>
+
+<div class="container">
+
+  <%= simple_form_for [@booking, @review] do |f| %>
+    <%= f.input :comment %>
+    <%= f.input :rating, collection: [1, 2, 3, 4, 5] %>
+    <%= f.button :submit %>
+  <% end %>
+
+</div>
