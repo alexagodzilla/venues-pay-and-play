@@ -2,7 +2,7 @@ require 'date'
 require 'open-uri'
 require 'json'
 
-api_key = #add your google api key here as a string and uncomment this line
+api_key =
 location = "Manchester" #change this to the location you want to search for
 
 #-----GOOGLE API-----
@@ -35,7 +35,7 @@ puts "creating users"
 end
 
 puts "creating venues"
-15.times do
+16.times do
   user = User.all.sample
   rehearsal_venue = music_venues.sample
   venue = Venue.new(
