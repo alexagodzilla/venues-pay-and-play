@@ -2,7 +2,7 @@ class VenuesController < ApplicationController
   before_action :set_venue, only: [:show]
 
   def index
-    if params[:start].present? || params[:end].present?
+    if params[:start].present? && params[:end].present?
       @venues = []
       compare_dates((params[:start].to_date..params[:end].to_date).to_a)
       @venues
@@ -25,9 +25,11 @@ class VenuesController < ApplicationController
 
   def compare_dates(date_range)
     Venue.all.each do |venue|
+      available = true
       venue.bookings.each do |booking|
-        @venues << venue unless ([booking.start_date, booking.end_date] & date_range).any?
+        available = false if ((booking.start_date..booking.end_date).to_a & date_range).any?
       end
+      @venues << venue if available
     end
   end
 end

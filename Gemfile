@@ -35,6 +35,8 @@ gem "devise"
 
 gem 'faker'
 gem "cloudinary"
+gem "pry"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
