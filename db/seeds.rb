@@ -2,7 +2,7 @@ require 'date'
 require 'open-uri'
 require 'json'
 
-api_key =
+api_key = 'AIzaSyBT8K8ea7m_bZfRRvbVNnyZJigwW3llnOQ'
 location = "Manchester" #change this to the location you want to search for
 
 #-----GOOGLE API-----
@@ -35,6 +35,20 @@ puts "creating users"
 end
 
 puts "creating venues"
+venue_images = %w(pgfw7mefk6chajc7bmm6
+  nt5lseqqycqydw1tdta8
+  f2ttnamqghm1dbvpl7oh
+  nq8qgd05epmwd6h5vvyl
+  qaa9ffkc5gulgipbzrqe
+  oa6szektwkwp9neiclzk
+  gr83xmqnsjtevj9j5dpl
+  ym8k3n70q2qbcj8ngblq
+  ipbhbonqzsofoulmtjqf
+  gyyssr3tzunwiikuc0f2
+  mhmxhdutjrdchwosnygg
+  qwhp5aqbuedpix7w0r4w
+  j41exrcmxznuxb6zmgjj
+  uh2kiuhlpqe7mkxvxtct)
 16.times do
   user = User.all.sample
   rehearsal_venue = music_venues.sample
@@ -46,7 +60,8 @@ puts "creating venues"
     # location: "This is an address",
     size_of_band: rand(1..7),
     phone_number: "07#{rand(10**9)}",
-    description: Faker::Hipster.paragraph
+    description: Faker::Hipster.paragraph,
+    pic_url:  venue_images.sample
   )
   venue.user = user
   venue.save!
