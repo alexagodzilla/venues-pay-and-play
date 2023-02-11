@@ -2,7 +2,7 @@ require 'date'
 require 'open-uri'
 require 'json'
 
-api_key =
+api_key = "tbc" # add this in later
 location = "Manchester" #change this to the location you want to search for
 
 #-----GOOGLE API-----
