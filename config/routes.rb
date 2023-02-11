@@ -2,9 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "venues#index"
   resources :venues do
-    resources :bookings, only: [:new, :create]
+    resources :bookings, only: %i[new create]
   end
-  resources :bookings, only: [:index, :show, :edit, :update] do
-    resources :reviews, only: [:create]
+  resources :bookings, only: %i[index show edit update] do
+    resources :reviews, only: %i[create]
   end
+  resources :reviews, only: %i[destroy]
 end
