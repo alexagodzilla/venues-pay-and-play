@@ -1,7 +1,7 @@
 <div class="container">
   <h1 class="mt-3"><%= @venue.name %></h1>
   <div class="container my-3">
-    <%= cl_image_tag(@venue.pic_url, width: 287, height: 150, crop: :thumb, gravity: :face) %>
+    <%= cl_image_tag(@venue.pic_url, width: 287, height: 150, crop: :thumb, gravity: :face, effect: :shadow) %>
   </div>
     <p><i class="fa-solid fa-tag me-3"></i> £<%= @venue.price_per_day %> per day</p>
     <p><i class="fa-solid fa-location-dot me-3"></i> <%= @venue.location%></p>
