@@ -6,9 +6,9 @@ api_key = 'AIzaSyBT8K8ea7m_bZfRRvbVNnyZJigwW3llnOQ'
 location = "Manchester" #change this to the location you want to search for
 
 #-----GOOGLE API-----
-url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20#{location}&limit=15&key=#{api_key}"
+url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20#{location}&photo_reference=true&limit=15&key=#{api_key}"
 music_venues = JSON.parse(URI.open(url).read)['results']
-puts music_venues.first
+puts music_venues.first['photos'][0]['photo_reference']
 #-----CLEANING DB-----
 puts "destroying review database"
 Review.destroy_all
@@ -51,6 +51,9 @@ venue_images = %w(pgfw7mefk6chajc7bmm6
   uh2kiuhlpqe7mkxvxtct)
 
   for rehearsal_venue in music_venues do
+    # puts rehearsal_venue['photos'][0]['photo_reference']
+
+
   user = User.all.sample
   venue = Venue.new(
     # name: "This is a name",
@@ -61,7 +64,11 @@ venue_images = %w(pgfw7mefk6chajc7bmm6
     size_of_band: rand(1..7),
     phone_number: "07#{rand(10**9)}",
     description: Faker::Hipster.paragraph,
-    pic_url:  venue_images.sample
+    pic_url: unless rehearsal_venue['photos'].nil?
+
+      "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{rehearsal_venue['photos'][0]['photo_reference']}&key=#{api_key}"
+  else venue_images.sample
+    end
   )
   venue.user = user
   venue.save!
