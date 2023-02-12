@@ -2,7 +2,7 @@
 
   <h1><%= @venue.name %></h1>
   <div class="container my-3">
-    <%= cl_image_tag(@venue.pic_url, width: 287, height: 150, crop: :thumb, radius: 5) %>
+    <%= cl_image_tag(@venue.pic_url, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
   </div>
   <ul>
     <li>Price per day: £<%= @venue.price_per_day %></li>
