@@ -1,11 +1,24 @@
 <div class="container">
   <div class="row">
-  <div class="col-5 mt-4">
-    <%= simple_form_for [@venue, @booking] do |f| %>
-      <strong><%= f.input :start_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 3, order: [:day, :month, :year] %></strong>
-      <strong><%= f.input :end_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 3, order: [:day, :month, :year] %></strong>
-      <%= f.submit "Book venue", class: "btn btn-success mt-2" %>
-    <% end %>
+    <div class="col-5 mt-4">
+      <%= simple_form_for [@venue, @booking] do |f| %>
+        <strong><%= f.input :start_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 3, order: [:day, :month, :year] %></strong>
+        <strong><%= f.input :end_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 3, order: [:day, :month, :year] %></strong>
+        <%= f.submit "Book venue", class: "btn btn-success mt-2" %>
+      <% end %>
+    </div>
+    <div class="col-6 mt-4 ms-5">
+      <h4>Selected venue: <%= @venue.name %></h4>
+      <%= cl_image_tag(@venue.pic_url, width: 287, height: 150, crop: :thumb, radius: 5) %>
+      <p class="mt-3 mb-1">£<%= @venue.price_per_day %> per day</p><hr class="m-2">
+      <p class="mb-1"><%= @venue.location %></p><hr class="m-2">
+      <p class="mb-1">Can accommodate up to
+      <% if @venue.size_of_band > 1 %>
+        <%= @venue.size_of_band %> musicians <hr class="m-2">
+      <% else %>
+        <%= @venue.size_of_band %> musician <hr class="m-2">
+      <% end %>
+      <p class="mb-1"><%= @venue.description %></p>
     </div>
   </div>
 </div>
