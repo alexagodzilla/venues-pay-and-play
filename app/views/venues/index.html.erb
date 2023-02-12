@@ -19,13 +19,24 @@
     <% @venues.each do |venue| %>
       <div class="col-1 my-3">
         <div class="card h-100" style="width: 18rem;">
-        <%= link_to venue_path(venue), target: :_blank do %>
+        <%= link_to venue_path(venue) do %>
          <%= cl_image_tag(venue.pic_url, width: 287, height: 150, crop: :thumb, gravity: :face) %>
         <% end %>
           <div class="card-body d-flex flex-column">
             <h5 class="card-title"><strong><%= link_to venue.name, venue_path(venue.id), class: "text-dark" %></strong></h5>
             <p class="card-text"><%= venue.location %></p>
             <p class="card-text mt-auto"><strong>£<%= venue.price_per_day %></strong> |
+            <% if venue.reviews.present? %>
+              <% overall_rating = 0 %>
+              <% venue.reviews.each do |review| %>
+                <% overall_rating += review.rating %>
+              <% end %>
+              <% sum = overall_rating / venue.reviews.count.to_f %>
+              <%= sum.round(1) %>⭐
+              <% else %>
+                No ratings
+            <% end %>
+             |
             <% if venue.size_of_band == 1 %>
               <%= venue.size_of_band %> person</p>
             <% else %>

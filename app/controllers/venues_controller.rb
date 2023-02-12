@@ -1,5 +1,6 @@
 class VenuesController < ApplicationController
   before_action :set_venue, only: [:show]
+  skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
     if params[:start].present? && params[:end].present?
@@ -33,6 +34,3 @@ class VenuesController < ApplicationController
     end
   end
 end
-
-# in adding a new venue, the following line will need to be input in order to use cloudinary:
-# f.input :photo, as: :file

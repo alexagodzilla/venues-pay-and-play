@@ -14,7 +14,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     @review.delete
-    redirect_to booking_path(@review.booking), notice: "Review deleted."
+    redirect_to booking_path(@review.booking), notice: "Review deleted"
   end
 
   private
@@ -23,6 +23,3 @@ class ReviewsController < ApplicationController
     params.require(:review).permit(:comment, :rating)
   end
 end
-
-# index/show - we show reviews on bookings show
-# new - we create a new review on the booking show
