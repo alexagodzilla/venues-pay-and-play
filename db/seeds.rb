@@ -6,7 +6,7 @@ api_key = ENV['GOOGLE_API_KEY']
 location = "Manchester" #change this to the location you want to search for
 
 #-----GOOGLE API-----
-url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20#{location}&photo_reference=true&limit=15&key=#{api_key}"
+url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20#{location}&photo_reference=true&limit=16&key=#{api_key}"
 music_venues = JSON.parse(URI.open(url).read)['results']
 
 #-----CLEANING DB-----
@@ -74,7 +74,7 @@ end
 puts "creating bookings - 10 available"
 10.times do
   user = User.all.sample
-  venue = Venue.all.sample
+  venue = Venue.all.first(10).sample
   date = Date.today + rand(5..25)
   booking = Booking.new(
     start_date: date,
@@ -86,9 +86,10 @@ puts "creating bookings - 10 available"
 end
 
 puts "creating bookings - 5 unavailable (with same date)"
-5.times do
+unavailable_venues = Venue.all.last(5)
+unavailable_venues.each do |item|
   user = User.all.sample
-  venue = Venue.all.sample
+  venue = item
   date = Date.today + 7
   booking = Booking.new(
     start_date: date,
