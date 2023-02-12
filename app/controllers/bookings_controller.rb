@@ -17,15 +17,16 @@ class BookingsController < ApplicationController
   end
 
   def create
+    @venue = Venue.find(params[:venue_id])
     @booking = Booking.new(booking_params)
     @booking.confirmed = true
     @booking.user = current_user
     @booking.venue = Venue.find(params[:venue_id])
-    if @booking.save!
+    if @booking.save
       # redirect_to venue_path(@booking.venue), notice: 'Booking confirmed' #to do redirected to users show page
       redirect_to booking_path(@booking), notice: 'Booking confirmed'
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity, locals: { venue: @venue }
     end
   end
 

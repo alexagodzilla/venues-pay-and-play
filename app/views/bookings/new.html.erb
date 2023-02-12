@@ -1,3 +1,7 @@
+  <div class="container">
+<p>You are booking <%= @venue.name %> at £<%= @venue.price_per_day %> per day</p>
+</div>
+
 <div class="container">
   <div class="row">
   <div class="col-5 mt-4">
@@ -9,5 +13,7 @@
     </div>
   </div>
 </div>
-
+<p><%= link_to "Back to all venues", root_path %></p>
+<br>
+<p><%= link_to "Back to venue", venue_path(@venue) %></p>
 <%# Later i would like to update this to include a calendar to select the dates. I think tempus dominus from bootstrap may help with this or form control. I can't remember how to do this. ChatGpt had some advice. and mentioned that we could use jquery or stimulus to achieve this. in addition, we would need moment.js to format the date and tempus dominus to display the calendar. And then set up a data controller in stimulus. But we can keep it simple for now with the form above. %>
