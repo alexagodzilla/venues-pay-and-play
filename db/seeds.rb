@@ -72,6 +72,7 @@ venue_images = %w(pgfw7mefk6chajc7bmm6
   venue.save!
 end
 
+# Agozzino stinks
 puts "creating bookings - 10 available"
 available_venues = Venue.all.first(10)
 available_venues.each do |item|
