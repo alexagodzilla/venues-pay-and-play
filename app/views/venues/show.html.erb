@@ -1,33 +1,29 @@
 <div class="container">
-
-  <h1><%= @venue.name %></h1>
+  <h1 class="mt-3"><%= @venue.name %></h1>
   <div class="container my-3">
-    <%= cl_image_tag(@venue.pic_url, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
+    <%= cl_image_tag(@venue.pic_url, width: 287, height: 150, crop: :thumb, gravity: :face, effect: :shadow, radius: 5) %>
   </div>
-  <ul>
-    <li>Price per day: £<%= @venue.price_per_day %></li>
-    <li>Location: <%= @venue.location%></li>
-    <% if @venue.size_of_band > 1 %>
-      <li>Size of band: <%= @venue.size_of_band %> lovely musicians</li>
-    <% else %>
-      <li>Size of band: <%= @venue.size_of_band %> lovely musician</li>
-    <% end %>
-    <li>Description: <%= @venue.description %></li>
-  </ul>
-
-
-   <button class="btn btn-info mt-2" type="submit"><%= link_to "Back to all Venues", root_path %></button>
-   <br>
-   <button class="btn btn-success mt-2" type="submit"><%= link_to "Book Venue", new_venue_booking_path(@venue) %></button>
-
-
-
-  <h3>Reviews</h3>
+  <p><i class="fa-solid fa-tag me-3"></i> £<%= @venue.price_per_day %> per day</p>
+  <p><i class="fa-solid fa-location-dot me-3"></i> <%= @venue.location%></p>
+  <% if @venue.size_of_band > 1 %>
+    <p><i class="fa-solid fa-users me-2"></i> Up to <%= @venue.size_of_band %></i></p>
+  <% else %>
+    <p><i class="fa-solid fa-users me-2"></i> Up to <%= @venue.size_of_band %></p>
+  <% end %>
+  <p><i class="fa-solid fa-circle-info me-3"></i><%= @venue.description %></p>
+  <button class="btn btn-primary mt-2" type="submit">
+    <%= link_to "Back to all venues", root_path, class: "text-white" %>
+  </button>
+  <button class="btn btn-success mt-2" type="submit">
+    <%= link_to "Book venue", new_venue_booking_path(@venue), class: "text-white" %>
+  </button>
+  <h3 class="mt-3">Reviews</h3>
   <% if @venue.reviews.present? %>
     <% @venue.reviews.each do |venue| %>
     <p><strong><%= venue.rating %> ⭐</strong></p>
     <p><%= venue.comment %></p>
     <% end %>
- <% end %>
-
+  <% else %>
+    <p>There are currently no reviews for this venue.</p>
+  <% end %>
 </div>
