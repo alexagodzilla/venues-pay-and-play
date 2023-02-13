@@ -1,9 +1,8 @@
 require 'date'
 require 'open-uri'
 require 'json'
-api_key = ENV['GOOGLE_API_KEY']
-
-location = "Manchester" #change this to the location you want to search for
+api_key = ENV.fetch('GOOGLE_API_KEY')
+location = "London"
 
 #-----GOOGLE API-----
 url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20#{location}&photo_reference=true&limit=16&key=#{api_key}"
@@ -35,49 +34,38 @@ puts "creating users"
 end
 
 puts "creating venues"
-venue_images = %w(pgfw7mefk6chajc7bmm6
+venue_images = %w[
   nt5lseqqycqydw1tdta8
-  f2ttnamqghm1dbvpl7oh
-  nq8qgd05epmwd6h5vvyl
   qaa9ffkc5gulgipbzrqe
-  oa6szektwkwp9neiclzk
-  gr83xmqnsjtevj9j5dpl
   ym8k3n70q2qbcj8ngblq
   ipbhbonqzsofoulmtjqf
-  gyyssr3tzunwiikuc0f2
-  mhmxhdutjrdchwosnygg
-  qwhp5aqbuedpix7w0r4w
   j41exrcmxznuxb6zmgjj
-  uh2kiuhlpqe7mkxvxtct)
+]
 
-  for rehearsal_venue in music_venues do
+music_venues.each do |venue_api|
   user = User.all.sample
   venue = Venue.new(
-    # name: "This is a name",
-    name: rehearsal_venue['name'],
+    name: venue_api['name'],
     price_per_day: rand(50..100),
-    location: rehearsal_venue['formatted_address'],
-    # location: "This is an address",
+    location: venue_api['formatted_address'].split(', U')[0],
     size_of_band: rand(1..7),
     phone_number: "07#{rand(10**9)}",
     description: Faker::Hipster.paragraph,
-    pic_url: unless rehearsal_venue['photos'].nil?
-# i have added some logic to upload photos from google places api to cloudinary. this needs to be tested.
-      "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{rehearsal_venue['photos'][0]['photo_reference']}&key=#{api_key}"
-      # venue.photo.attach(io: URI.open("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{rehearsal_venue['photos'][0]['photo_reference']}&key=#{api_key}"), filename: 'venue.png', content_type: 'image/png')
-  else venue_images.sample
+    pic_url:
+    if venue_api['photos'].nil?
+      venue_images.sample
+    else
+      "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{venue_api['photos'][0]['photo_reference']}&key=#{api_key}"
     end
   )
   venue.user = user
   venue.save!
 end
 
-# Agozzino stinks
 puts "creating bookings - 10 available"
 available_venues = Venue.all.first(10)
-available_venues.each do |item|
-user = User.all.sample
-venue = item
+available_venues.each do |venue|
+  user = User.all.sample
   date = Date.today + rand(5..25)
   booking = Booking.new(
     start_date: date,
@@ -90,9 +78,8 @@ end
 
 puts "creating bookings - 5 unavailable (with same date)"
 unavailable_venues = Venue.all.last(5)
-unavailable_venues.each do |item|
+unavailable_venues.each do |venue|
   user = User.all.sample
-  venue = item
   date = Date.today + 7
   booking = Booking.new(
     start_date: date,
@@ -104,17 +91,18 @@ unavailable_venues.each do |item|
 end
 
 puts "creating reviews"
-20.times do
+60.times do
   booking = Booking.all.sample
   review = Review.new(
-    comment: Faker::Hipster.paragraph,
-    rating: rand(1..5)
+    comment: Faker::TvShows::TheFreshPrinceOfBelAir.quote,
+    rating: rand(3..5)
   )
   review.booking = booking
   review.save!
 end
 
 # -------------------- Jon's comments--------------------
+# venue.photo.attach(io: URI.open("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{rehearsal_venue['photos'][0]['photo_reference']}&key=#{api_key}"), filename: 'venue.png', content_type: 'image/png')
 # for the google API:
 # we could pass other queries to this string in terms of location and search terms. I have also limited the number of results to 15.
 
