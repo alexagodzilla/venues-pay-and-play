@@ -62,8 +62,9 @@ venue_images = %w(pgfw7mefk6chajc7bmm6
     phone_number: "07#{rand(10**9)}",
     description: Faker::Hipster.paragraph,
     pic_url: unless rehearsal_venue['photos'].nil?
-
+# i have added some logic to upload photos from google places api to cloudinary. this needs to be tested.
       "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{rehearsal_venue['photos'][0]['photo_reference']}&key=#{api_key}"
+      # venue.photo.attach(io: URI.open("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{rehearsal_venue['photos'][0]['photo_reference']}&key=#{api_key}"), filename: 'venue.png', content_type: 'image/png')
   else venue_images.sample
     end
   )
@@ -72,9 +73,10 @@ venue_images = %w(pgfw7mefk6chajc7bmm6
 end
 
 puts "creating bookings - 10 available"
-10.times do
-  user = User.all.sample
-  venue = Venue.all.first(10).sample
+available_venues = Venue.all.first(10)
+available_venues.each do |item|
+user = User.all.sample
+venue = item
   date = Date.today + rand(5..25)
   booking = Booking.new(
     start_date: date,
