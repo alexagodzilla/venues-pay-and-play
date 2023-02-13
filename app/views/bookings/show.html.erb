@@ -1,11 +1,17 @@
 <div class="container">
   <h1>Booking Details</h1>
     <h3 class="mt-3">Your booking is confirmed with <%= @booking.venue.name %></h3>
+    <% delta = distance_of_time_in_words(@booking.end_date,@booking.start_date).to_i  %>
     <ul>
       <li>Start date: <%= @booking.start_date.strftime("%d %B %Y") %> </li>
       <li>End date: <%= @booking.end_date.strftime("%d %B %Y") %></li>
-      <li>Total cost: £<%= (@booking.venue.price_per_day).to_i * (distance_of_time_in_words(@booking.end_date,@booking.start_date)).to_i %></li>
-      <li><%= (distance_of_time_in_words(@booking.end_date,@booking.start_date)) %></li>
+      <% if delta <= 0 %>
+        <li>Total cost: £<%= (@booking.venue.price_per_day).to_i * 1 %></li>
+        <li>1 day</li>
+      <% else %>
+        <li>Total cost: £<%= (@booking.venue.price_per_day).to_i * distance_of_time_in_words(@booking.end_date,@booking.start_date).to_i%></li>
+        <li><%= (distance_of_time_in_words(@booking.start_date,@booking.end_date)) %></li>
+      <% end %>
     </ul>
     <button class="btn btn-danger mt-2" type="submit">
       <%= link_to "Delete booking", booking_path(@booking), data: { turbo_method: :delete,
