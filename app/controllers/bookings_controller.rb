@@ -1,6 +1,4 @@
 class BookingsController < ApplicationController
-  # before_action :authenticate_user!
-
   def index
     @bookings = Booking.all
   end
@@ -23,7 +21,7 @@ class BookingsController < ApplicationController
     @booking.user = current_user
     @booking.venue = Venue.find(params[:venue_id])
     if @booking.save
-      # redirect_to venue_path(@booking.venue), notice: 'Booking confirmed' #to do redirected to users show page
+      # to do: redirect to user home page
       redirect_to booking_path(@booking), notice: 'Booking confirmed'
     else
       render :new, status: :unprocessable_entity, locals: { venue: @venue }
