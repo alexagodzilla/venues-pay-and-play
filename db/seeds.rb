@@ -2,9 +2,10 @@ require 'date'
 require 'open-uri'
 require 'json'
 api_key = ENV.fetch('GOOGLE_API_KEY')
+location = "London"
 
 #-----GOOGLE API-----
-url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20London%20Manchester%20Bristol%20Glasgow%20&photo_reference=true&limit=16&key=#{api_key}"
+url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20#{location}&photo_reference=true&limit=16&key=#{api_key}"
 music_venues = JSON.parse(URI.open(url).read)['results']
 
 #-----CLEANING DB-----
