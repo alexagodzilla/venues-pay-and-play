@@ -1,0 +1,7 @@
+    <div class="col-5 mt-4">
+      <%= simple_form_for [@venue, @booking] do |f| %>
+        <strong><%= f.input :start_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 3, order: [:day, :month, :year] %></strong>
+        <strong><%= f.input :end_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 3, order: [:day, :month, :year] %></strong>
+        <%= f.submit "Book venue", class: "btn btn-success mt-2" %>
+      <% end %>
+    </div>
