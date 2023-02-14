@@ -12,6 +12,20 @@ class VenuesController < ApplicationController
     end
   end
 
+  def new
+    @venue = Venue.new
+  end
+
+  def create
+    @venue = Venue.create(venue_params)
+    @venue.user = current_user
+    if @venue.save!
+      redirect_to root_path, notice: "A new venue was successfully created."
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def show
     # @booking = @venue.bookings.find { |booking| booking.user == current_user }
     @venue = Venue.find(params[:id])
@@ -32,5 +46,9 @@ class VenuesController < ApplicationController
       end
       @venues << venue if available
     end
+  end
+
+  def venue_params
+    params.require(:venue).permit(:name, :price_per_day, :location, :size_of_band, :description, :phone_number, :photo)
   end
 end

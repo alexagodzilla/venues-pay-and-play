@@ -46,6 +46,8 @@ gem "pry"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
+
+gem "geocoder"
 # Use Active Storage variant to validate overlapping dates
 gem 'validates_overlap'
 
