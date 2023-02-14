@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_11_131906) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_14_180139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -88,6 +88,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_11_131906) do
     t.text "description"
     t.string "phone_number"
     t.string "pic_url"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["user_id"], name: "index_venues_on_user_id"
   end
 
@@ -98,3 +100,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_11_131906) do
   add_foreign_key "reviews", "bookings"
   add_foreign_key "venues", "users"
 end
+
+
+# Venue.create(name: "Da peppe", price_per_day: 123, location: "16 Villa Gaudelet, Paris", size_of_band: 3, description: "very very beautiful", phone_number: 1234567890, pic_url: "eifeiff", user_id: 179)

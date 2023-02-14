@@ -1,0 +1,21 @@
+<div class="container">
+  <%= simple_form_for(@venue) do |f| %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <div class="form-inputs">
+      <%= f.input :name%>
+      <%= f.input :price_per_day %>
+      <%= f.input :location %>
+      <%= f.input :size_of_band %>
+      <%= f.input :description %>
+      <%= f.input :phone_number %>
+      <%= f.input :photo, as: :file %>
+      <!-- <%= f.input :photos, as: :file, input_html: { multiple: true } %> -->
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+  <% end %>
+</div>
