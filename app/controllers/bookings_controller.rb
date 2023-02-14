@@ -21,7 +21,6 @@ class BookingsController < ApplicationController
     @booking.user = current_user
     @booking.venue = Venue.find(params[:venue_id])
     if @booking.save
-      # to do: redirect to user home page
       redirect_to booking_path(@booking), notice: 'Booking confirmed'
     else
       render :new, status: :unprocessable_entity, locals: { venue: @venue }
@@ -38,9 +37,17 @@ class BookingsController < ApplicationController
     redirect_to booking_path(@booking)
   end
 
+  def destroy
+    @booking = Booking.find(params[:id])
+    @booking.destroy
+    redirect_to root_path, notice: 'Booking deleted'
+    # once user page done, redirect_to user_path, notice: 'Booking deleted'
+  end
+
   private
 
   def booking_params
     params.require(:booking).permit(:start_date, :end_date, :confirmed)
   end
+
 end
