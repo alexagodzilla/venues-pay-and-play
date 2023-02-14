@@ -30,6 +30,12 @@ class VenuesController < ApplicationController
     # @booking = @venue.bookings.find { |booking| booking.user == current_user }
     @venue = Venue.find(params[:id])
     @review = Review.new
+    @markers = @venues.geocoded.map do |venue|
+      {
+        lat: venue.latitude,
+        lng: venue.longitude
+      }
+    end
   end
 
   private
