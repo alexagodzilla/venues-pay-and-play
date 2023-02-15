@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'pages/profile'
   devise_for :users
   root to: "venues#index"
   resources :venues do
