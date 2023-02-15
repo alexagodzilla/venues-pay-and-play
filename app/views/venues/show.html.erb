@@ -23,13 +23,17 @@
   <button class="btn btn-success mt-2" type="submit">
     <%= link_to "Book venue", new_venue_booking_path(@venue), class: "text-white" %>
   </button>
-
-<% if @venue.user == current_user %>
-      <button class="btn btn-danger mt-2" type="submit">
+  <% if @venue.user == current_user %>
+    <button class="btn btn-warning mt-2" type="submit">
+      <%= link_to "Edit venue", edit_venue_path(@venue), class: "text-white" %>
+    </button>
+  <% end %>
+  <% if @venue.user == current_user %>
+    <button class="btn btn-danger mt-2" type="submit">
       <%= link_to "Delete venue", venue_path(@venue), data: { turbo_method: :delete,
       turbo_confirm: "Are you sure you want to delete your venue?" }, class: "text-white" %>
     </button>
-    <% end %>
+  <% end %>
   <h3 class="mt-3">Reviews</h3>
   <% if @venue.reviews.present? %>
     <% @venue.reviews.each do |venue| %>
