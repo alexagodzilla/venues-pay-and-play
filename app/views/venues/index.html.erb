@@ -9,12 +9,11 @@
         <label for="end"><strong>End date</strong></label>
         <input class="form-control my-2" id="end" name="end" type="date">
       </div>
-      <div class="col-3 mt-5">
+      <div class="col-3 mt-4">
         <button class="btn btn-success mt-2" type="submit">Search</button>
       </div>
     </form>
   </div>
-  <%= link_to "Create your own venue", new_venue_path %>
   <div class="row my-5 .d-flex justify-content-center">
     <% @venues.each do |venue| %>
       <div class="col-1 my-3">
