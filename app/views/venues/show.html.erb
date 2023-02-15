@@ -33,12 +33,19 @@
     </button>
   <% end %>
   <h3 class="mt-3">Reviews</h3>
-  <% if @venue.reviews.present? %>
-    <% @venue.reviews.each do |venue| %>
-    <p><strong><%= venue.rating %> ⭐</strong></p>
-    <p><%= venue.comment %></p>
+<% if @venue.reviews.present? %>
+  <% @venue.reviews.each do |review| %>
+    <p><strong><%= review.rating %> ⭐</strong></p>
+    <p><%= review.comment %></p>
+    <% if current_user == review.booking.user %>
+       <button class="btn btn-danger mt-2" type="submit">
+      <%= link_to "Delete Review", review_path(review), data: { turbo_method: :delete,
+      turbo_confirm: "Are you sure you want to delete your review?" }, class: "text-white" %>
+    </button>
     <% end %>
-  <% else %>
-    <p>There are currently no reviews for this venue.</p>
   <% end %>
+<% else %>
+  <p>There are currently no reviews for this venue.</p>
+<% end %>
+
 </div>
