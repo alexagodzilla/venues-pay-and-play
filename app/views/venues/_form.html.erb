@@ -1,9 +1,9 @@
 <div class="container">
   <%= simple_form_for(@venue) do |f| %>
-    <%= f.error_notification %>
-    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+    <%# <%= f.error_notification %>
+    <%# <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-    <div class="form-inputs">
+    <div class="form-inputs w-50">
       <%= f.input :name%>
       <%= f.input :price_per_day %>
       <%= f.input :location %>
@@ -15,7 +15,9 @@
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit %>
+      <button class="btn btn-primary" type="submit">
+        <%= f.button :submit, "Sign up", class: "text-white p-0" %>
+      </button>
     </div>
   <% end %>
 </div>
