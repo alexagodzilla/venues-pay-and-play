@@ -51,6 +51,8 @@ music_venues.each do |venue_api|
     size_of_band: rand(1..7),
     phone_number: "07#{rand(10**9)}",
     description: Faker::Hipster.paragraph,
+    latitude: venue_api["geometry"]["location"]["lat"],
+    longitude: venue_api["geometry"]["location"]["lng"],
     pic_url:
     if venue_api['photos'].nil?
       venue_images.sample

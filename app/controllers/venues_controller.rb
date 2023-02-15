@@ -31,11 +31,18 @@ class VenuesController < ApplicationController
     @venue = Venue.find(params[:id])
     @review = Review.new
     # find what array it wants back
-    @markers =
-      [{
-        lat: @venue.latitude,
-        lng: @venue.longitude
-      }]
+    @venues = Venue.all
+    # The `geocoded` scope filters only flats with coordinates
+   @markers = @venues.geocoded.map do |venue|
+      if venue == @venue
+       {
+        lat: venue.latitude,
+        lng: venue.longitude,
+  #     info_window_html: render_to_string(partial: "popup", locals: {flat: flat}),
+  #     image_url: helpers.asset_url("logo.png")
+       }
+      end
+    end
   end
 
   private
