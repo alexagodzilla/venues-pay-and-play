@@ -40,6 +40,12 @@ class VenuesController < ApplicationController
     end
   end
 
+  # will redirect to user page once user page is done.
+  def destroy
+    @venue.destroy
+    redirect_to root_path, notice: 'Venue deleted'
+  end
+
   private
 
   def set_venue
