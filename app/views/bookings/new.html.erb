@@ -1,9 +1,19 @@
 <div class="container">
   <div class="row">
-    <%= render "form", booking: @booking %>
+    <div class="col-5 mt-4">
+      <%= simple_form_for [@venue, @booking] do |f| %>
+        <strong><%= f.input :start_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 3, order: [:day, :month, :year] %></strong>
+        <strong><%= f.input :end_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 3, order: [:day, :month, :year] %></strong>
+        <%= f.submit "Book venue", class: "btn btn-success mt-2" %>
+      <% end %>
+    </div>
     <div class="col-6 mt-4 ms-5">
       <h4>Selected venue: <%= @venue.name %></h4>
-      <%= cl_image_tag(@venue.pic_url, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
+          <% if @venue.photo.attached? %>
+      <%= cl_image_tag(@venue.photo.key, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
+    <% else %>
+       <%= image_tag(@venue.pic_url, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
+       <% end %>
       <p class="mt-3 mb-1">£<%= @venue.price_per_day %> per day</p><hr class="m-2">
       <p class="mb-1"><%= @venue.location %></p><hr class="m-2">
       <p class="mb-1">Can accommodate up to
@@ -13,11 +23,8 @@
         <%= @venue.size_of_band %> musician <hr class="m-2">
       <% end %>
       <p class="mb-1"><%= @venue.description %></p>
-        <button class="btn btn-primary mt-2" type="submit">
-          <%= link_to "Back to all venues", root_path, class: "text-white" %>
-      </button>
+      <p><%= link_to "Back to venue", venue_path(@venue) %></p>
     </div>
   </div>
 </div>
-
 <%# Later i would like to update this to include a calendar to select the dates. I think tempus dominus from bootstrap may help with this or form control. I can't remember how to do this. ChatGpt had some advice. and mentioned that we could use jquery or stimulus to achieve this. in addition, we would need moment.js to format the date and tempus dominus to display the calendar. And then set up a data controller in stimulus. But we can keep it simple for now with the form above. %>

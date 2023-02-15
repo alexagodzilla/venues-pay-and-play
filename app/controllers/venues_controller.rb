@@ -32,6 +32,13 @@ class VenuesController < ApplicationController
     @review = Review.new
   end
 
+  # will redirect to user page once user page is done.
+  def destroy
+    @venue = Venue.find(params[:id])
+    @venue.destroy
+    redirect_to root_path, notice: 'Venue deleted'
+  end
+
   private
 
   def set_venue
