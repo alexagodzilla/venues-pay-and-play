@@ -12,10 +12,6 @@ class VenuesController < ApplicationController
     end
   end
 
-  def show
-    @review = Review.new
-  end
-
   def new
     @venue = Venue.new
   end
@@ -28,6 +24,24 @@ class VenuesController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+
+  def show
+    @review = Review.new
+    # find what array it wants back
+    @marker = []
+    @venues = Venue.all
+    # The `geocoded` scope filters only flats with coordinates
+   @markers = @venues.geocoded.map do |venue|
+        {
+          lat: venue.latitude,
+          lng: venue.longitude
+        # info_window_html: render_to_string(partial: "popup", locals: {venue: venue}),
+        # image_url: helpers.asset_url("logo.png")
+        }
+    end
+    @marker << @markers.find {|m| m[:lat] == @venue.latitude && m[:lng] == @venue.longitude}
   end
 
   def edit; end
@@ -44,6 +58,7 @@ class VenuesController < ApplicationController
   def destroy
     @venue.destroy
     redirect_to root_path, notice: 'Venue deleted'
+
   end
 
   private
@@ -66,5 +81,3 @@ class VenuesController < ApplicationController
     end
   end
 end
-
-# @booking = @venue.bookings.find { |booking| booking.user == current_user }
