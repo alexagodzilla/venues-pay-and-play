@@ -1,5 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: %i[show edit update destroy]
+  before_action :set_venue, only: %i[new create]
 
   def index
     @bookings = Booking.all
@@ -10,17 +11,15 @@ class BookingsController < ApplicationController
   end
 
   def new
-    @venue = Venue.find(params[:venue_id])
     @user = current_user
     @booking = Booking.new
   end
 
   def create
-    @venue = Venue.find(params[:venue_id])
     @booking = Booking.new(booking_params)
     @booking.confirmed = true
     @booking.user = current_user
-    @booking.venue = Venue.find(params[:venue_id])
+    @booking.venue = @venue
     if @booking.save
       redirect_to booking_path(@booking), notice: 'Booking confirmed'
     else
@@ -37,8 +36,7 @@ class BookingsController < ApplicationController
 
   def destroy
     @booking.destroy
-    redirect_to root_path, notice: 'Booking deleted'
-    # once user page done, redirect_to user_path, notice: 'Booking deleted'
+    redirect_to profile_path, notice: 'Booking deleted'
   end
 
   private
@@ -49,5 +47,9 @@ class BookingsController < ApplicationController
 
   def set_booking
     @booking = Booking.find(params[:id])
+  end
+
+  def set_venue
+    @venue = Venue.find(params[:venue_id])
   end
 end

@@ -93,7 +93,7 @@ unavailable_venues.each do |venue|
 end
 
 puts "creating reviews"
-60.times do
+75.times do
   booking = Booking.all.sample
   review = Review.new(
     comment: Faker::TvShows::TheFreshPrinceOfBelAir.quote,
