@@ -19,23 +19,18 @@ export default class extends Controller {
     });
     this.#addMarkersToMap()
     this.#fitMapToMarkers()
-    // this.map.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken,
-    //   mapboxgl: mapboxgl }))
   }
 
   #fitMapToMarkers() {
     const bounds = new mapboxgl.LngLatBounds()
     this.markersValue.forEach(marker => bounds.extend([ marker.lng, marker.lat ]))
-    this.map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 5000 })
+    this.map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 2000 })
   }
 
    #addMarkersToMap(){
     this.markersValue.forEach((marker) => {
       const customMarker = document.createElement('div')
-      customMarker.style.height = "30px"
-      customMarker.style.width = "30px"
-      customMarker.style.backgroundImage = `url('${marker.image_url}')`
-      customMarker.style.backgroundSize = "contain"
+      customMarker.innerHTML = marker.marker_html
       const popup = new mapboxgl.Popup().setHTML(marker.info_window_html)
       new mapboxgl.Marker({element: customMarker})
         .setLngLat([ marker.lng, marker.lat ])

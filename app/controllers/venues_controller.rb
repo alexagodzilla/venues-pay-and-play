@@ -63,7 +63,7 @@ class VenuesController < ApplicationController
         lat: venue.latitude,
         lng: venue.longitude,
         info_window_html: render_to_string(partial: "popup", locals: {venue: venue}),
-        image_url: helpers.asset_url("guitar.png")
+        marker_html: render_to_string(partial: "marker")
       }
     end
   end
