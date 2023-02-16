@@ -10,27 +10,9 @@ class VenuesController < ApplicationController
     else
       @venues = Venue.all
     end
-
     set_markers
-
-    session[:search_start] = params[:start]
-    session[:search_end] = params[:end]
-
-  end
-
-  def new
-    @venue = Venue.new
-  end
-
-
-  def create
-    @venue = Venue.create(venue_params)
-    @venue.user = current_user
-    if @venue.save!
-      redirect_to venue_path(@venue), notice: "A new venue was successfully created"
-    else
-      render :new, status: :unprocessable_entity
-    end
+    # session[:search_start] = params[:start]
+    # session[:search_end] = params[:end]
   end
 
   def show
@@ -42,11 +24,15 @@ class VenuesController < ApplicationController
     @marker << @markers.find {|m| m[:lat] == @venue.latitude && m[:lng] == @venue.longitude}
   end
 
+  def new
+    @venue = Venue.new
+  end
+
   def create
     @venue = Venue.create(venue_params)
     @venue.user = current_user
     if @venue.save!
-      redirect_to root_path, notice: "A new venue was successfully created"
+      redirect_to venue_path(@venue), notice: "A new venue was successfully created"
     else
       render :new, status: :unprocessable_entity
     end
