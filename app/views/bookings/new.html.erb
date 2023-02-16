@@ -9,7 +9,7 @@
       <p class="mb-1">Can accommodate up to
       <% if @venue.size_of_band > 1 %>
         <%= @venue.size_of_band %> musicians <hr class="m-2">
-
+      <% end %>
       <% if @venue.photo.attached? %>
         <%= cl_image_tag(@venue.photo.key, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
       <% else %>
