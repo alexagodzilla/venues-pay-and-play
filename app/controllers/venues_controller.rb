@@ -10,36 +10,27 @@ class VenuesController < ApplicationController
     else
       @venues = Venue.all
     end
+    set_markers
     # session[:search_start] = params[:start]
     # session[:search_end] = params[:end]
+  end
+
+  def show
+    @review = Review.new
+    @marker = []
+    set_markers
+    @marker << @markers.find { |m| m[:lat] == @venue.latitude && m[:lng] == @venue.longitude }
   end
 
   def new
     @venue = Venue.new
   end
 
-  def show
-    @review = Review.new
-    # find what array it wants back
-    @marker = []
-    @venues = Venue.all
-    # The `geocoded` scope filters only flats with coordinates
-    @markers = @venues.geocoded.map do |venue|
-      {
-        lat: venue.latitude,
-        lng: venue.longitude
-        # info_window_html: render_to_string(partial: "popup", locals: {venue: venue}),
-        # image_url: helpers.asset_url("logo.png")
-      }
-    end
-    @marker << @markers.find { |m| m[:lat] == @venue.latitude && m[:lng] == @venue.longitude }
-  end
-
   def create
     @venue = Venue.create(venue_params)
     @venue.user = current_user
     if @venue.save!
-      redirect_to root_path, notice: "A new venue was successfully created"
+      redirect_to venue_path(@venue), notice: "A new venue was successfully created"
     else
       render :new, status: :unprocessable_entity
     end
@@ -61,6 +52,18 @@ class VenuesController < ApplicationController
   end
 
   private
+
+  def set_markers
+    @venues = Venue.all
+    @markers = @venues.geocoded.map do |venue|
+      {
+        lat: venue.latitude,
+        lng: venue.longitude,
+        info_window_html: render_to_string(partial: "popup", locals: {venue: venue}),
+        marker_html: render_to_string(partial: "marker")
+      }
+    end
+  end
 
   def set_venue
     @venue = Venue.find(params[:id])

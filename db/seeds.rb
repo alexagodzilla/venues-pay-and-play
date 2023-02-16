@@ -57,7 +57,7 @@ music_venues.each do |venue_api|
     if venue_api['photos'].nil?
       venue_images.sample
     else
-      "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{venue_api['photos'][0]['photo_reference']}&key=#{api_key}"
+     "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{venue_api['photos'][0]['photo_reference']}&key=#{api_key}"
     end
   )
   venue.user = user
