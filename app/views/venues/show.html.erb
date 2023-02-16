@@ -6,11 +6,10 @@
 <div class="container">
   <h1 class="mt-3"><%= @venue.name %></h1>
   <div class="container my-3">
-    <!-- <%= cl_image_tag @venue.photo.key %> -->
     <% if @venue.photo.attached? %>
       <%= cl_image_tag(@venue.photo.key, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
     <% else %>
-      <%= cl_image_tag(@venue.pic_url, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
+       <%= image_tag(@venue.pic_url, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
     <% end %>
   </div>
   <p><i class="fa-solid fa-tag me-3"></i> £<%= @venue.price_per_day %> per day</p>
@@ -27,6 +26,17 @@
   <button class="btn btn-success mt-2" type="submit">
     <%= link_to "Book venue", new_venue_booking_path(@venue), class: "text-white" %>
   </button>
+  <% if @venue.user == current_user %>
+    <button class="btn btn-warning mt-2" type="submit">
+      <%= link_to "Edit venue", edit_venue_path(@venue), class: "text-white" %>
+    </button>
+  <% end %>
+  <% if @venue.user == current_user %>
+    <button class="btn btn-danger mt-2" type="submit">
+      <%= link_to "Delete venue", venue_path(@venue), data: { turbo_method: :delete,
+      turbo_confirm: "Are you sure you want to delete your venue?" }, class: "text-white" %>
+    </button>
+  <% end %>
   <h3 class="mt-3">Reviews</h3>
   <% if @venue.reviews.present? %>
     <% @venue.reviews.each do |venue| %>

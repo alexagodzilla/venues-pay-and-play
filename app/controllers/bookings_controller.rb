@@ -1,10 +1,11 @@
 class BookingsController < ApplicationController
+  before_action :set_booking, only: %i[show edit update destroy]
+
   def index
     @bookings = Booking.all
   end
 
   def show
-    @booking = Booking.find(params[:id])
     @review = Review.new
   end
 
@@ -27,18 +28,14 @@ class BookingsController < ApplicationController
     end
   end
 
-  def edit
-    @booking = Booking.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @booking = Booking.find(params[:id])
     @booking.update(booking_params)
     redirect_to booking_path(@booking)
   end
 
   def destroy
-    @booking = Booking.find(params[:id])
     @booking.destroy
     redirect_to root_path, notice: 'Booking deleted'
     # once user page done, redirect_to user_path, notice: 'Booking deleted'
@@ -50,4 +47,7 @@ class BookingsController < ApplicationController
     params.require(:booking).permit(:start_date, :end_date, :confirmed)
   end
 
+  def set_booking
+    @booking = Booking.find(params[:id])
+  end
 end

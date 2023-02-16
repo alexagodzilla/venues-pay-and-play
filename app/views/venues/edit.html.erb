@@ -1,0 +1,15 @@
+<div class="container">
+<h1>Edit venue</h1>
+  <div class="col-5 mt-4">
+    <%= simple_form_for @venue do |f| %>
+      <%= f.input :name%>
+      <%= f.input :price_per_day %>
+      <%= f.input :location %>
+      <%= f.input :size_of_band %>
+      <%= f.input :description %>
+      <%= f.input :phone_number %>
+      <%= f.input :photo, as: :file %>
+      <%= f.button :submit %>
+    <% end %>
+  </div>
+</div>

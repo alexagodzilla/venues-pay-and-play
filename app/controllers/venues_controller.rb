@@ -1,5 +1,5 @@
 class VenuesController < ApplicationController
-  before_action :set_venue, only: [:show]
+  before_action :set_venue, only: %i[show edit update destroy]
   skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
@@ -12,6 +12,10 @@ class VenuesController < ApplicationController
     end
   end
 
+  def show
+    @review = Review.new
+  end
+
   def new
     @venue = Venue.new
   end
@@ -20,11 +24,12 @@ class VenuesController < ApplicationController
     @venue = Venue.create(venue_params)
     @venue.user = current_user
     if @venue.save!
-      redirect_to root_path, notice: "A new venue was successfully created."
+      redirect_to root_path, notice: "A new venue was successfully created"
     else
       render :new, status: :unprocessable_entity
     end
   end
+
 
   def show
     # @booking = @venue.bookings.find { |booking| booking.user == current_user }
@@ -42,12 +47,32 @@ class VenuesController < ApplicationController
         }
     end
     @marker << @markers.find {|m| m[:lat] == @venue.latitude && m[:lng] == @venue.longitude}
+
+  def edit; end
+
+  def update
+    if @venue.update(venue_params)
+      redirect_to venue_path(@venue)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  # will redirect to user page once user page is done.
+  def destroy
+    @venue.destroy
+    redirect_to root_path, notice: 'Venue deleted'
+
   end
 
   private
 
   def set_venue
     @venue = Venue.find(params[:id])
+  end
+
+  def venue_params
+    params.require(:venue).permit(:name, :price_per_day, :location, :size_of_band, :description, :phone_number, :photo)
   end
 
   def compare_dates(date_range)
@@ -59,8 +84,6 @@ class VenuesController < ApplicationController
       @venues << venue if available
     end
   end
-
-  def venue_params
-    params.require(:venue).permit(:name, :price_per_day, :location, :size_of_band, :description, :phone_number, :photo)
-  end
 end
+
+# @booking = @venue.bookings.find { |booking| booking.user == current_user }

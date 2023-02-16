@@ -23,7 +23,7 @@
           <% if venue.photo.attached? %>
             <%= cl_image_tag(venue.photo.key, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
           <% else %>
-            <%= cl_image_tag(venue.pic_url, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
+            <%= image_tag(venue.pic_url, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
           <% end %>
         <% end %>
           <div class="card-body d-flex flex-column">
