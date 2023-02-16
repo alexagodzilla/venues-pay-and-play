@@ -10,23 +10,14 @@ class VenuesController < ApplicationController
     else
       @venues = Venue.all
     end
+    session[:search_start] = params[:start]
+    session[:search_end] = params[:end]
   end
 
   def new
     @venue = Venue.new
   end
-
-  def create
-    @venue = Venue.create(venue_params)
-    @venue.user = current_user
-    if @venue.save!
-      redirect_to root_path, notice: "A new venue was successfully created"
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
-
+  
   def show
     @review = Review.new
     # find what array it wants back
@@ -44,6 +35,16 @@ class VenuesController < ApplicationController
     @marker << @markers.find {|m| m[:lat] == @venue.latitude && m[:lng] == @venue.longitude}
   end
 
+  def create
+    @venue = Venue.create(venue_params)
+    @venue.user = current_user
+    if @venue.save!
+      redirect_to root_path, notice: "A new venue was successfully created"
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def edit; end
 
   def update
@@ -54,11 +55,9 @@ class VenuesController < ApplicationController
     end
   end
 
-  # will redirect to user page once user page is done.
   def destroy
     @venue.destroy
-    redirect_to root_path, notice: 'Venue deleted'
-
+    redirect_to profile_path, notice: 'Venue deleted'
   end
 
   private
