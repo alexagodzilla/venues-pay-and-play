@@ -12,10 +12,6 @@ class VenuesController < ApplicationController
     end
   end
 
-  def show
-    @review = Review.new
-  end
-
   def new
     @venue = Venue.new
   end
@@ -32,8 +28,6 @@ class VenuesController < ApplicationController
 
 
   def show
-    # @booking = @venue.bookings.find { |booking| booking.user == current_user }
-    # @venue = Venue.find(params[:id])
     @review = Review.new
     # find what array it wants back
     @marker = []
