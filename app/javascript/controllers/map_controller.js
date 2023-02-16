@@ -36,10 +36,11 @@ export default class extends Controller {
       // customMarker.style.width = "30px"
       // customMarker.style.backgroundImage = `url('${marker.image_url}')`
       // customMarker.style.backgroundSize = "contain"
-      const popup = new mapboxgl.Popup().setHTML(marker.info_window_html)
-      new mapboxgl.Marker({element: customMarker})
+      // const popup = new mapboxgl.Popup().setHTML(marker.info_window_html)
+      // {element: customMarker}
+      new mapboxgl.Marker()
         .setLngLat([ marker.lng, marker.lat ])
-        .setPopup(popup)
+        // .setPopup(popup)
         .addTo(this.map)
     })
   }

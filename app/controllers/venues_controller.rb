@@ -33,9 +33,10 @@ class VenuesController < ApplicationController
 
   def show
     # @booking = @venue.bookings.find { |booking| booking.user == current_user }
-    @venue = Venue.find(params[:id])
+    # @venue = Venue.find(params[:id])
     @review = Review.new
     # find what array it wants back
+    @marker = []
     @venues = Venue.all
     # The `geocoded` scope filters only flats with coordinates
    @markers = @venues.geocoded.map do |venue|
@@ -47,6 +48,7 @@ class VenuesController < ApplicationController
         }
     end
     @marker << @markers.find {|m| m[:lat] == @venue.latitude && m[:lng] == @venue.longitude}
+  end
 
   def edit; end
 
@@ -85,5 +87,3 @@ class VenuesController < ApplicationController
     end
   end
 end
-
-# @booking = @venue.bookings.find { |booking| booking.user == current_user }
