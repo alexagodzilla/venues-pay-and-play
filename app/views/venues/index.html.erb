@@ -27,12 +27,12 @@
   <%= text_field_tag :query,
     params[:query],
     class: "form-control",
-    placeholder: "MIn Price"
+    placeholder: "Min price"
   %>
   <%= text_field_tag :query,
     params[:query],
     class: "form-control",
-    placeholder: "Max Price"
+    placeholder: "Max price"
   %>
   <%= submit_tag "Search", class: "btn btn-primary" %>
 <% end %>
@@ -42,11 +42,27 @@
     <form>
       <div class="col-2 mt-4">
         <label for="start" class=""><strong>Start date</strong></label>
-        <input class="form-control my-2" id="start" name="start" type="date"z>
+        <input class="form-control my-2" id="start" name="start" type="date">
       </div>
       <div class="col-2 mt-4">
         <label for="end"><strong>End date</strong></label>
         <input class="form-control my-2" id="end" name="end" type="date">
+      </div>
+      <div class="col-2 mt-4">
+        <label for="min-price"><strong>Min price</strong></label>
+        <input class="form-control my-2" id="min-price" name="minprice" type="text">
+      </div>
+      <div class="col-2 mt-4">
+        <label for="max-price"><strong>Max price</strong></label>
+        <input class="form-control my-2" id="max-price" name="maxprice" type="text">
+      </div>
+      <div class="col-2 mt-4">
+        <label for="min-members"><strong>Min band members</strong></label>
+        <input class="form-control my-2" id="min-members" name="minmembers" type="text">
+      </div>
+      <div class="col-2 mt-4">
+        <label for="max-members"><strong>Max band members</strong></label>
+        <input class="form-control my-2" id="max-members" name="maxmembers" type="text">
       </div>
       <div class="col-2 mt-4">
         <button class="btn btn-success mt-2" type="submit">Search</button>

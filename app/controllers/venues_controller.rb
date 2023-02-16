@@ -3,10 +3,13 @@ class VenuesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
-    if params[:start].present? && params[:end].present?
+    if (params[:start].present? && params[:end].present?) || (params[:minprice].present? || params[:maxprice].present?) || (params[:minmember].present? || params[:maxmember].present?)
       @venues = []
-      compare_dates((params[:start].to_date..params[:end].to_date).to_a)
+      compare_dates((params[:start].to_date..params[:end].to_date).to_a, (params[:minprice].to_i..params[:maxprice].to_i).to_a, (params[:minmembers].to_i..params[:maxmembers].to_i).to_a)
+      # compare_dates((params[:minprice].to_i..params[:maxprice].to_i).to_a)
+      # compare_dates((params[:minmembers].to_i..params[:maxmembers].to_i).to_a)
       @venues
+      # raise
     else
       @venues = Venue.all
     end
@@ -14,6 +17,12 @@ class VenuesController < ApplicationController
     # session[:search_start] = params[:start]
     # session[:search_end] = params[:end]
   end
+
+# @ venues.select do |venue|
+#   find the venue that fills the criterea for the price, band size (min max) and dates
+#   no duplicates that would come in (subtract arrays?)
+# end
+
 
   def show
     @review = Review.new
@@ -73,13 +82,28 @@ class VenuesController < ApplicationController
     params.require(:venue).permit(:name, :price_per_day, :location, :size_of_band, :description, :phone_number, :photo)
   end
 
-  def compare_dates(date_range)
+  def compare_dates(range_date, range_price, range_member)
     Venue.all.each do |venue|
       available = true
       venue.bookings.each do |booking|
-        available = false if ((booking.start_date..booking.end_date).to_a & date_range).any?
+        available = false if ((booking.start_date..booking.end_date).to_a & range_date).any?
       end
       @venues << venue if available
     end
+    price = @venues.select do |venue|
+      range_price.include?(venue.price_per_day)
+    end
+    members = price.select do |venue|
+      range_member.include?(venue.size_of_band)
+    end
+    @venues = members
   end
 end
+
+# @ venues.select do |venue|
+#   find the venue that fills the criterea for the price, band size (min max) and dates
+#   no duplicates that would come in (subtract arrays?)
+# end
+
+# create smaller or refactored private methods
+# test just one price, for example
