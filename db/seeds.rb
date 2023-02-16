@@ -5,7 +5,7 @@ api_key = ENV.fetch('GOOGLE_API_KEY')
 location = "London"
 
 #-----GOOGLE API-----
-url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20#{location}&photo_reference=true&limit=20&key=#{api_key}"
+url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20#{location}&photo_reference=true&limit=16&key=#{api_key}"
 music_venues = JSON.parse(URI.open(url).read)['results']
 
 #-----CLEANING DB-----
@@ -48,7 +48,7 @@ music_venues.each do |venue_api|
     name: venue_api['name'],
     price_per_day: rand(50..100),
     location: venue_api['formatted_address'].split(', United Kingdom')[0],
-    size_of_band: rand(3..10),
+    size_of_band: rand(1..7),
     phone_number: "07#{rand(10**9)}",
     description: Faker::Hipster.paragraph,
     pic_url:
