@@ -3,6 +3,13 @@
     <%= render "form", { venue: @venue, booking: @booking } %>
     <div class="col-6 mt-4 ms-5">
       <h4>Selected venue: <%= @venue.name %></h4>
+
+      <p class="mt-3 mb-1">£<%= @venue.price_per_day %> per day</p><hr class="m-2">
+      <p class="mb-1"><%= @venue.location %></p><hr class="m-2">
+      <p class="mb-1">Can accommodate up to
+      <% if @venue.size_of_band > 1 %>
+        <%= @venue.size_of_band %> musicians <hr class="m-2">
+
       <% if @venue.photo.attached? %>
         <%= cl_image_tag(@venue.photo.key, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
       <% else %>
