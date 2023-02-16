@@ -6,7 +6,8 @@
     <div class="form-inputs w-50">
       <%= f.input :name%>
       <%= f.input :price_per_day %>
-      <%= f.input :location %>
+      <%= f.input :location, input_html: {data: {location_autocomplete_target: "location"}, class: "d-none"},
+                  wrapper_html: {data: {controller: "location-autocomplete", location_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}} %>
       <%= f.input :size_of_band %>
       <%= f.input :description %>
       <%= f.input :phone_number %>

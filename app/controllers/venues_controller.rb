@@ -10,6 +10,7 @@ class VenuesController < ApplicationController
     else
       @venues = Venue.all
     end
+    set_markers
   end
 
   def new
@@ -20,7 +21,7 @@ class VenuesController < ApplicationController
     @venue = Venue.create(venue_params)
     @venue.user = current_user
     if @venue.save!
-      redirect_to root_path, notice: "A new venue was successfully created"
+      redirect_to venue_path(@venue), notice: "A new venue was successfully created"
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,16 +32,8 @@ class VenuesController < ApplicationController
     @review = Review.new
     # find what array it wants back
     @marker = []
-    @venues = Venue.all
     # The `geocoded` scope filters only flats with coordinates
-   @markers = @venues.geocoded.map do |venue|
-        {
-          lat: venue.latitude,
-          lng: venue.longitude
-        # info_window_html: render_to_string(partial: "popup", locals: {venue: venue}),
-        # image_url: helpers.asset_url("logo.png")
-        }
-    end
+    set_markers
     @marker << @markers.find {|m| m[:lat] == @venue.latitude && m[:lng] == @venue.longitude}
   end
 
@@ -62,6 +55,18 @@ class VenuesController < ApplicationController
   end
 
   private
+
+  def set_markers
+    @venues = Venue.all
+    @markers = @venues.geocoded.map do |venue|
+      {
+        lat: venue.latitude,
+        lng: venue.longitude,
+        info_window_html: render_to_string(partial: "popup", locals: {venue: venue}),
+        image_url: helpers.asset_url("guitar.png")
+      }
+    end
+  end
 
   def set_venue
     @venue = Venue.find(params[:id])
