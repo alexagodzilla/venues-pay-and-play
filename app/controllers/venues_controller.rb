@@ -14,12 +14,25 @@ class VenuesController < ApplicationController
     session[:search_end] = params[:end]
   end
 
-  def show
-    @review = Review.new
-  end
-
   def new
     @venue = Venue.new
+  end
+  
+  def show
+    @review = Review.new
+    # find what array it wants back
+    @marker = []
+    @venues = Venue.all
+    # The `geocoded` scope filters only flats with coordinates
+   @markers = @venues.geocoded.map do |venue|
+        {
+          lat: venue.latitude,
+          lng: venue.longitude
+        # info_window_html: render_to_string(partial: "popup", locals: {venue: venue}),
+        # image_url: helpers.asset_url("logo.png")
+        }
+    end
+    @marker << @markers.find {|m| m[:lat] == @venue.latitude && m[:lng] == @venue.longitude}
   end
 
   def create
@@ -67,5 +80,3 @@ class VenuesController < ApplicationController
     end
   end
 end
-
-# @booking = @venue.bookings.find { |booking| booking.user == current_user }
