@@ -1,3 +1,4 @@
-<h1>Edit your booking</h1>
-
-<%= render "form", booking: @booking %>
+<div class="container">
+  <h2>Edit your booking</h2>
+  <%= render "form", { venue: @venue, booking: @booking } %>
+</div>
