@@ -17,11 +17,9 @@ class VenuesController < ApplicationController
 
   def show
     @review = Review.new
-    # find what array it wants back
     @marker = []
-    # The `geocoded` scope filters only flats with coordinates
     set_markers
-    @marker << @markers.find {|m| m[:lat] == @venue.latitude && m[:lng] == @venue.longitude}
+    @marker << @markers.find { |m| m[:lat] == @venue.latitude && m[:lng] == @venue.longitude }
   end
 
   def new
