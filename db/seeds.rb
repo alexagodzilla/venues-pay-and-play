@@ -174,7 +174,7 @@ end
 #     name: venue_name,
 #     price_per_day: rand(50..100),
 #     location: "#{data['location']['street']['name']}, #{data['location']['city']}",
-#     size_of_band: rand(1..7),
+#     size_of_band: rand(3..10),
 #     description: venue_description,
 #   )
 #   # This line is crucial to associate the venue and user and allow for venues to be persisted.
