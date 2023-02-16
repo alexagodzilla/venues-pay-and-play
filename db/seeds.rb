@@ -23,7 +23,7 @@ User.destroy_all
 
 # -----------------
 puts "creating users"
-100.times do
+20.times do
   user = User.new(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.unique.last_name,
@@ -93,7 +93,7 @@ unavailable_venues.each do |venue|
 end
 
 puts "creating reviews"
-60.times do
+75.times do
   booking = Booking.all.sample
   review = Review.new(
     comment: Faker::TvShows::TheFreshPrinceOfBelAir.quote,
