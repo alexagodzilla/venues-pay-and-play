@@ -14,7 +14,7 @@
       <% end %>
     </ul>
     <button class="btn btn-info mt-2" type="submit">
-    <%= link_to "Edit Booking", edit_booking_path(@booking), class: "text-white" %>
+    <%= link_to "Edit booking", edit_booking_path(@booking), class: "text-white" %>
     </button>
     <button class="btn btn-danger mt-2" type="submit">
       <%= link_to "Delete booking", booking_path(@booking), data: { turbo_method: :delete,

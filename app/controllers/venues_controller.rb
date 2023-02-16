@@ -10,6 +10,8 @@ class VenuesController < ApplicationController
     else
       @venues = Venue.all
     end
+    session[:search_start] = params[:start]
+    session[:search_end] = params[:end]
   end
 
   def show
@@ -40,10 +42,9 @@ class VenuesController < ApplicationController
     end
   end
 
-  # will redirect to user page once user page is done.
   def destroy
     @venue.destroy
-    redirect_to root_path, notice: 'Venue deleted'
+    redirect_to profile_path, notice: 'Venue deleted'
   end
 
   private

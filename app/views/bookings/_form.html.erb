@@ -1,7 +1,13 @@
-<div class="col-5 mt-4">
-  <%= simple_form_for [@venue, @booking] do |f| %>
-    <strong><%= f.input :start_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 3, order: [:day, :month, :year] %></strong>
-    <strong><%= f.input :end_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 3, order: [:day, :month, :year] %></strong>
-    <%= f.submit "Submit", class: "btn btn-success mt-2" %>
+<div class="col-5 mt-3">
+  <%= form_with model: [venue, booking] do |f| %>
+  <div class="col-5">
+    <%= f.label :start_date, "Start date:", class: "form-label fw-bold", value: "#{session[:search_start]}" %>
+    <%= f.date_field :start_date, class: "form-control" %>
+  </div>
+  <div class="col-5 mt-2">
+    <%= f.label :end_date, "End date:", class: "form-label fw-bold" %>
+    <%= f.date_field :end_date, class: "form-control" %>
+  </div>
+  <%= f.button "Submit", class: "text-white btn btn-primary mt-3" %>
   <% end %>
 </div>
