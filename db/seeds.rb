@@ -23,7 +23,7 @@ User.destroy_all
 
 # -----------------
 puts "creating users"
-20.times do
+100.times do
   user = User.new(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.unique.last_name,
