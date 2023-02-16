@@ -40,15 +40,15 @@
 <div class="container">
   <div class="row">
     <form>
-      <div class="col-3 mt-4">
+      <div class="col-2 mt-4">
         <label for="start" class=""><strong>Start date</strong></label>
-        <input class="form-control my-2" id="start" name="start" type="date">
+        <input class="form-control my-2" id="start" name="start" type="date"z>
       </div>
-      <div class="col-3 mt-4">
+      <div class="col-2 mt-4">
         <label for="end"><strong>End date</strong></label>
         <input class="form-control my-2" id="end" name="end" type="date">
       </div>
-      <div class="col-3 mt-4">
+      <div class="col-2 mt-4">
         <button class="btn btn-success mt-2" type="submit">Search</button>
       </div>
     </form>
@@ -73,11 +73,7 @@
                 No ratings
             <% end %>
              |
-            <% if venue.size_of_band == 1 %>
-              <%= venue.size_of_band %> person</p>
-            <% else %>
-              <%= venue.size_of_band %> people</p>
-            <% end %>
+            <%= venue.size_of_band %> people</p>
           </div>
         </div>
       </div>
