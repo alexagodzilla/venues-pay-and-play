@@ -34,15 +34,14 @@ class VenuesController < ApplicationController
     @venues = Venue.all
     # The `geocoded` scope filters only flats with coordinates
    @markers = @venues.geocoded.map do |venue|
-      if venue == @venue
-       {
-        lat: venue.latitude,
-        lng: venue.longitude,
-  #     info_window_html: render_to_string(partial: "popup", locals: {flat: flat}),
-  #     image_url: helpers.asset_url("logo.png")
-       }
-      end
+        {
+          lat: venue.latitude,
+          lng: venue.longitude
+        # info_window_html: render_to_string(partial: "popup", locals: {venue: venue}),
+        # image_url: helpers.asset_url("logo.png")
+        }
     end
+    @marker << @markers.find {|m| m[:lat] == @venue.latitude && m[:lng] == @venue.longitude}
   end
 
   private
