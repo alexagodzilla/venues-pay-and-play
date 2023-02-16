@@ -53,12 +53,12 @@ music_venues.each do |venue_api|
     description: Faker::Hipster.paragraph,
     latitude: venue_api["geometry"]["location"]["lat"],
     longitude: venue_api["geometry"]["location"]["lng"],
-    # pic_url:
-    # if venue_api['photos'].nil?
-    #   venue_images.sample
-    # else
-    #   "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{venue_api['photos'][0]['photo_reference']}&key=#{api_key}"
-    # end
+    pic_url:
+    if venue_api['photos'].nil?
+      venue_images.sample
+    else
+     "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{venue_api['photos'][0]['photo_reference']}&key=#{api_key}"
+    end
   )
   venue.user = user
   venue.save!
