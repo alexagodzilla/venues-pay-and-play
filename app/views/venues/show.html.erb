@@ -9,11 +9,7 @@
   </div>
   <p><i class="fa-solid fa-tag me-3"></i> £<%= @venue.price_per_day %> per day</p>
   <p><i class="fa-solid fa-location-dot me-3"></i> <%= @venue.location%></p>
-  <% if @venue.size_of_band > 1 %>
-    <p><i class="fa-solid fa-users me-2"></i> Up to <%= @venue.size_of_band %></i></p>
-  <% else %>
-    <p><i class="fa-solid fa-users me-2"></i> Up to <%= @venue.size_of_band %></p>
-  <% end %>
+  <p><i class="fa-solid fa-users me-2"></i> Up to <%= @venue.size_of_band %></i></p>
   <p><i class="fa-solid fa-circle-info me-3"></i><%= @venue.description %></p>
   <button class="btn btn-primary mt-2" type="submit">
     <%= link_to "Back to all venues", root_path, class: "text-white" %>
@@ -51,9 +47,7 @@
       turbo_confirm: "Are you sure you want to delete your review?" }, class: "text-white" %>
     </button>
     <% end %>
+  <% else %>
+    <p>There are currently no reviews for this venue.</p>
   <% end %>
-<% else %>
-  <p>There are currently no reviews for this venue.</p>
-<% end %>
-
 </div>
