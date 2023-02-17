@@ -6,10 +6,7 @@ class VenuesController < ApplicationController
     if (params[:start].present? && params[:end].present?) || (params[:minprice].present? || params[:maxprice].present?) || (params[:minmember].present? || params[:maxmember].present?)
       @venues = []
       compare_dates((params[:start].to_date..params[:end].to_date).to_a, (params[:minprice].to_i..params[:maxprice].to_i).to_a, (params[:minmembers].to_i..params[:maxmembers].to_i).to_a)
-      # compare_dates((params[:minprice].to_i..params[:maxprice].to_i).to_a)
-      # compare_dates((params[:minmembers].to_i..params[:maxmembers].to_i).to_a)
       @venues
-      # raise
     else
       @venues = Venue.all
     end
@@ -17,12 +14,6 @@ class VenuesController < ApplicationController
     # session[:search_start] = params[:start]
     # session[:search_end] = params[:end]
   end
-
-# @ venues.select do |venue|
-#   find the venue that fills the criterea for the price, band size (min max) and dates
-#   no duplicates that would come in (subtract arrays?)
-# end
-
 
   def show
     @review = Review.new
@@ -99,11 +90,6 @@ class VenuesController < ApplicationController
     @venues = members
   end
 end
-
-# @ venues.select do |venue|
-#   find the venue that fills the criterea for the price, band size (min max) and dates
-#   no duplicates that would come in (subtract arrays?)
-# end
 
 # create smaller or refactored private methods
 # test just one price, for example
