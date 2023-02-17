@@ -13,7 +13,7 @@ export default class extends Controller {
       container: this.element, // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
       center: [-74.5, 40], // starting position [lng, lat]
-      zoom: 10, // starting zoom
+      zoom: 9, // starting zoom
     });
     this.#addMarkersToMap()
     this.#fitMapToMarkers()
@@ -22,7 +22,7 @@ export default class extends Controller {
   #fitMapToMarkers() {
     const bounds = new mapboxgl.LngLatBounds()
     this.markersValue.forEach(marker => bounds.extend([ marker.lng, marker.lat ]))
-    this.map.fitBounds(bounds, { padding: 70, maxZoom: 20, duration: 2000 })
+    this.map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 2000 })
   }
 
    #addMarkersToMap(){
