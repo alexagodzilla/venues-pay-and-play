@@ -1,66 +1,68 @@
 <div class="container">
-  <%= cl_image_tag current_user.avatar.key, class: "avatar-large" %>
-  Welcome back <%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %>!
-    <div class="row my-5 .d-flex justify-content-center">
-      <% @venues.each do |venue| %>
-      <h2 class="mt-3">My venues</h2>
-      <div class="col-1 my-3">
-        <div class="card h-100" style="width: 18rem;">
-          <%= link_to venue_path(venue) do %>
-            <% if venue.photo.attached? %>
-              <%= cl_image_tag(venue.photo.key, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
-            <% else %>
-              <%= image_tag(venue.pic_url, width: 287, height: 150, crop: :thumb, gravity: :face, radius: 5) %>
-            <% end %>
-          <% end %>
-          <div class="card-body .d-flex flex-column">
-            <h5 class="card-title"><strong><%= link_to venue.name, venue_path(venue.id), class: "text-dark" %></strong></h5>
-            <p class="card-text"><%= venue.location %></p>
-            <p class="card-text mt-auto"><strong>£<%= venue.price_per_day %></strong> |
-            <% if venue.reviews.present? %>
-              <% overall_rating = 0 %>
-              <% venue.reviews.each do |review| %>
-                <% overall_rating += review.rating %>
+  <div class="row mt-5">
+      <%= cl_image_tag current_user.avatar.key, class: "avatar-large mb-3" %>
+      <p class="mb-0">Welcome back, <%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %>!</p>
+  </div>
+
+  <% if current_user.venues.any? %>
+          <h2>My venues</h2>
+          <% @venues.each do |venue| %>
+          <div class="row my-5">
+            <div class="card">
+            <%= link_to venue_path(venue) do %>
+              <% if venue.photo.attached? %>
+                <%= cl_image_tag(venue.photo.key, crop: :thumb, gravity: :face, radius: 5) %>
+              <% else %>
+                <%= image_tag(venue.pic_url, crop: :thumb, gravity: :face, radius: 5) %>
               <% end %>
-              <% sum = overall_rating / venue.reviews.count.to_f %>
-              <%= sum.round(1) %>⭐
-            <% else %>
-              No ratings
             <% end %>
-             |
-            <%= venue.size_of_band %> people</p>
+            <div class="card-body .d-flex flex-column">
+              <h5 class="card-title"><strong><%= link_to venue.name, venue_path(venue.id), class: "text-dark" %></strong></h5>
+              <p class="card-text"><%= venue.location %></p>
+            </div>
             </div>
           </div>
-        </div>
-       <div class="col-2 "></div>
-      <% end %>
-    </div>
+          <% end %>
+  <% end %>
 
-  <div class="row my-5 .d-flex justify-content-center">
-    <% @bookings.each do |booking| %>
-      <h2>My bookings</h2>
-      <div class="col-1 my-3">
+    <h2>My future bookings</h2>
+      <div class="row my-5">
+       <% @future_bookings.each do |booking| %>
         <% venue = booking.venue %>
-        <div class="card h-100" style="width: 18rem;">
+        <div class="card">
+            <% if booking.venue.photo.attached? %>
+              <%= cl_image_tag(booking.venue.photo.key, crop: :thumb, gravity: :face, radius: 5) %>
+            <% else %>
+              <%= image_tag(booking.venue.pic_url, crop: :thumb, gravity: :face, radius: 5) %>
+            <% end %>
           <div class="card-body d-flex flex-column">
             <h5 class="card-title"><strong><%= link_to venue.name, booking_path(booking), class: "text-dark" %></strong></h5>
             <p class="card-text"><%= venue.location %></p>
-            <p class="card-text mt-auto"><strong>£<%= venue.price_per_day %></strong> |
-            <% if venue.reviews.present? %>
-              <% overall_rating = 0 %>
-              <% venue.reviews.each do |review| %>
-                <% overall_rating += review.rating %>
-              <% end %>
-              <% sum = overall_rating / venue.reviews.count.to_f %>
-              <%= sum.round(1) %>⭐
-            <% else %>
-              No ratings
-            <% end %>
-             |
-            <%= venue.size_of_band %> people</p>
+            <p class="card-text">Start date: <%= booking.start_date.strftime("%d %B %Y") %> </p>
+            <p class="card-text">End date: <%= booking.end_date.strftime("%d %B %Y") %></p>
           </div>
         </div>
       </div>
+    <% end %>
+
+
+    <h2>My previous bookings</h2>
+    <% @past_bookings.each do |booking| %>
+      <div class="row my-5">
+        <% venue = booking.venue %>
+        <div class="card">
+         <% if booking.venue.photo.attached? %>
+          <%= cl_image_tag(booking.venue.photo.key, crop: :thumb, gravity: :face, radius: 5) %>
+        <% else %>
+         <%= image_tag(booking.venue.pic_url, crop: :thumb, gravity: :face, radius: 5) %>
+        <% end %>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title"><strong><%= link_to venue.name, booking_path(booking), class: "text-dark" %></strong></h5>
+            <p class="card-text"><%= venue.location %></p>
+            <p class="card-text text-muted"><strong>Booking completed on:</strong> <%= booking.end_date.strftime("%d %B %Y") %></p>
+          <%= link_to "Leave a review", booking_path(booking, anchor: "review"), class: "btn btn-primary"%>
+          </div>
+        </div>
     <% end %>
   </div>
 </div>
