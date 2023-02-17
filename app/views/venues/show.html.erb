@@ -40,7 +40,10 @@
   <h3 class="mt-3">Reviews</h3>
 <% if @venue.reviews.present? %>
   <% @venue.reviews.each do |review| %>
-    <p><strong><%= review.rating %>⭐</strong></p>
+        <% x = review.rating%>
+      <% x.times do %>
+      <strong>⭐</strong>
+      <% end %>
     <p><%= review.comment %></p>
     <% if current_user == review.booking.user %>
        <button class="btn btn-danger mt-2" type="submit">
