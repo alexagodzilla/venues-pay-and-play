@@ -2,10 +2,9 @@ require 'date'
 require 'open-uri'
 require 'json'
 api_key = ENV.fetch('GOOGLE_API_KEY')
-location = "London"
 
 #-----GOOGLE API-----
-url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20#{location}&photo_reference=true&limit=16&key=#{api_key}"
+url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20London&photo_reference=true&limit=20&key=#{api_key}"
 music_venues = JSON.parse(URI.open(url).read)['results']
 
 #-----CLEANING DB-----
@@ -46,7 +45,7 @@ music_venues.each do |venue_api|
   user = User.all.sample
   venue = Venue.new(
     name: venue_api['name'],
-    price_per_day: rand(50..100),
+    price_per_day: rand(75..150),
     location: venue_api['formatted_address'].split(', United Kingdom')[0],
     size_of_band: rand(1..7),
     phone_number: "07#{rand(10**9)}",
@@ -57,15 +56,15 @@ music_venues.each do |venue_api|
     if venue_api['photos'].nil?
       venue_images.sample
     else
-     "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{venue_api['photos'][0]['photo_reference']}&key=#{api_key}"
+      "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{venue_api['photos'][0]['photo_reference']}&key=#{api_key}"
     end
   )
   venue.user = user
   venue.save!
 end
 
-puts "creating bookings - 10 available"
-available_venues = Venue.all.first(10)
+puts "creating bookings - 15"
+available_venues = Venue.all.first(15)
 available_venues.each do |venue|
   user = User.all.sample
   date = Date.today + rand(5..25)
@@ -78,7 +77,7 @@ available_venues.each do |venue|
   booking.save!
 end
 
-puts "creating bookings - 5 unavailable (with same date)"
+puts "creating bookings - 5 (with same date)"
 unavailable_venues = Venue.all.last(5)
 unavailable_venues.each do |venue|
   user = User.all.sample
