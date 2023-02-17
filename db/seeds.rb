@@ -64,7 +64,7 @@ music_venues.each do |venue_api|
 end
 
 puts "creating bookings - 15"
-available_venues = Venue.all.first(10)
+available_venues = Venue.all.first(15)
 available_venues.each do |venue|
   user = User.all.sample
   date = Date.today + rand(5..25)
