@@ -1,2 +1,16 @@
-<h1><%= venue.name %></h1>
-<p><%= venue.location %></p>
+<div class="popup">
+  <h5><%= venue.name %></h5>
+  <p><%= venue.location %></p>
+  <p><i class="fa-solid fa-users me-1"></i><%= venue.size_of_band %> |
+  <i class="fa-solid fa-tag me-1 ms-1"></i>£<%= venue.price_per_day %> |
+  <% if venue.reviews.present? %>
+    <% overall_rating = 0 %>
+    <% venue.reviews.each do |review| %>
+      <% overall_rating += review.rating %>
+    <% end %>
+    <% sum = overall_rating / venue.reviews.count.to_f %>
+    ⭐ <%= sum.round(1) %>
+  <% else %>
+      No ratings
+  <% end %></p>
+  <%= link_to "Venue details", venue_path(venue), id: "popup-button" %>
