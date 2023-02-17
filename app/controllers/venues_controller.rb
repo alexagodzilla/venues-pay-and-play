@@ -10,10 +10,16 @@ class VenuesController < ApplicationController
     else
       @venues = Venue.all
     end
+    set_markers
+    # session[:search_start] = params[:start]
+    # session[:search_end] = params[:end]
   end
 
   def show
     @review = Review.new
+    @marker = []
+    set_markers
+    @marker << @markers.find { |m| m[:lat] == @venue.latitude && m[:lng] == @venue.longitude }
   end
 
   def new
@@ -24,7 +30,7 @@ class VenuesController < ApplicationController
     @venue = Venue.create(venue_params)
     @venue.user = current_user
     if @venue.save!
-      redirect_to root_path, notice: "A new venue was successfully created"
+      redirect_to venue_path(@venue), notice: "A new venue was successfully created"
     else
       render :new, status: :unprocessable_entity
     end
@@ -40,13 +46,24 @@ class VenuesController < ApplicationController
     end
   end
 
-  # will redirect to user page once user page is done.
   def destroy
     @venue.destroy
-    redirect_to root_path, notice: 'Venue deleted'
+    redirect_to profile_path, notice: 'Venue deleted'
   end
 
   private
+
+  def set_markers
+    @venues = Venue.all
+    @markers = @venues.geocoded.map do |venue|
+      {
+        lat: venue.latitude,
+        lng: venue.longitude,
+        info_window_html: render_to_string(partial: "popup", locals: {venue: venue}),
+        marker_html: render_to_string(partial: "marker")
+      }
+    end
+  end
 
   def set_venue
     @venue = Venue.find(params[:id])
@@ -66,5 +83,3 @@ class VenuesController < ApplicationController
     end
   end
 end
-
-# @booking = @venue.bookings.find { |booking| booking.user == current_user }

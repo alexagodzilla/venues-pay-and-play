@@ -1,15 +1,54 @@
+<div id="map" style="width: 100%; height: 400px;"
+  data-controller="map"
+  data-map-markers-value="<%= @markers.to_json %>"
+  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+</div>
+<!--
+<%= form_with(url: root_path, method: :get) do |f| %>
+  <%= label_tag :size_of_band, "Size of Band" %>
+  <%= range_field_tag :size_of_band, params[:size_of_band] %>
+  <%= label_tag :price, "Price" %>
+  <%= range_field_tag :price, params[:price] %>
+  <%= submit_tag "Search" %>
+<% end %>
+-->
+
+<%= form_with url: venues_path, method: :get, class: "d-flex" do %>
+  <%= text_field_tag :query,
+    params[:query],
+    class: "form-control",
+    placeholder: "Minimum number of musicians"
+  %>
+  <%= text_field_tag :query,
+    params[:query],
+    class: "form-control",
+    placeholder: "Maximum number of musicians"
+  %>
+  <%= text_field_tag :query,
+    params[:query],
+    class: "form-control",
+    placeholder: "MIn Price"
+  %>
+  <%= text_field_tag :query,
+    params[:query],
+    class: "form-control",
+    placeholder: "Max Price"
+  %>
+  <%= submit_tag "Search", class: "btn btn-primary" %>
+<% end %>
+
 <div class="container">
   <div class="row">
     <form>
-      <div class="col-3 mt-4">
+      <div class="col-2 mt-4">
         <label for="start" class=""><strong>Start date</strong></label>
-        <input class="form-control my-2" id="start" name="start" type="date">
+        <input class="form-control my-2" id="start" name="start" type="date"z>
       </div>
-      <div class="col-3 mt-4">
+      <div class="col-2 mt-4">
         <label for="end"><strong>End date</strong></label>
         <input class="form-control my-2" id="end" name="end" type="date">
       </div>
-      <div class="col-3 mt-4">
+      <div class="col-2 mt-4">
         <button class="btn btn-success mt-2" type="submit">Search</button>
       </div>
     </form>
