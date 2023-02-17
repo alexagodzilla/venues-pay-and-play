@@ -47,7 +47,7 @@ music_venues.each do |venue_api|
     name: venue_api['name'],
     price_per_day: rand(75..150),
     location: venue_api['formatted_address'].split(', United Kingdom')[0],
-    size_of_band: rand(1..7),
+    size_of_band: rand(3..10),
     phone_number: "07#{rand(10**9)}",
     description: Faker::Hipster.paragraph,
     latitude: venue_api["geometry"]["location"]["lat"],
