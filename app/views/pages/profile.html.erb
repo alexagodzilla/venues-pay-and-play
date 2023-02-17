@@ -1,7 +1,6 @@
-<div class="container">
+<div class="container booking-container">
   <div class="row mt-5">
-      <%= cl_image_tag current_user.avatar.key, class: "avatar-large mb-3" %>
-      <p class="mb-0">Welcome back, <%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %>!</p>
+      <h3 class="mb-0">Welcome back, <%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %>!</h3>
   </div>
 
   <% if current_user.venues.any? %>
@@ -17,7 +16,7 @@
               <% end %>
             <% end %>
             <div class="card-body .d-flex flex-column">
-              <h5 class="card-title"><strong><%= link_to venue.name, venue_path(venue.id), class: "text-dark" %></strong></h5>
+              <h2 class="card-title"><strong><%= link_to venue.name, venue_path(venue.id), class: "text-dark" %></strong></h2>
               <p class="card-text"><%= venue.location %></p>
             </div>
             </div>
@@ -25,7 +24,7 @@
           <% end %>
   <% end %>
 
-    <h2>My future bookings</h2>
+    <h2 class="booking-header">Future bookings</h2>
       <div class="row my-5">
        <% @future_bookings.each do |booking| %>
         <% venue = booking.venue %>
@@ -36,17 +35,16 @@
               <%= image_tag(booking.venue.pic_url, crop: :thumb, gravity: :face, radius: 5) %>
             <% end %>
           <div class="card-body d-flex flex-column">
-            <h5 class="card-title"><strong><%= link_to venue.name, booking_path(booking), class: "text-dark" %></strong></h5>
-            <p class="card-text"><%= venue.location %></p>
-            <p class="card-text">Start date: <%= booking.start_date.strftime("%d %B %Y") %> </p>
-            <p class="card-text">End date: <%= booking.end_date.strftime("%d %B %Y") %></p>
+            <h2 class="card-title"><strong><%= link_to venue.name, booking_path(booking), class: "text-dark" %></strong></h2>
+            <p class="card-text card-location"><%= venue.location %></p>
+            <p class="card-text bolder-font"><%= booking.start_date.strftime("%d %B %Y") %> - <%= booking.end_date.strftime("%d %B %Y") %></p>
           </div>
         </div>
       </div>
     <% end %>
 
 
-    <h2>My previous bookings</h2>
+    <h2 class="booking-header">Previous bookings</h2>
     <% @past_bookings.each do |booking| %>
       <div class="row my-5">
         <% venue = booking.venue %>
@@ -58,9 +56,9 @@
         <% end %>
           <div class="card-body d-flex flex-column">
             <h5 class="card-title"><strong><%= link_to venue.name, booking_path(booking), class: "text-dark" %></strong></h5>
-            <p class="card-text"><%= venue.location %></p>
+            <p class="card-text card-location"><%= venue.location %></p>
             <p class="card-text text-muted"><strong>Booking completed on:</strong> <%= booking.end_date.strftime("%d %B %Y") %></p>
-          <%= link_to "Leave a review", booking_path(booking, anchor: "review"), class: "btn btn-primary"%>
+          <%= link_to "Leave a review", booking_path(booking, anchor: "review"), class: "button-blue review-button text-center"%>
           </div>
         </div>
     <% end %>
