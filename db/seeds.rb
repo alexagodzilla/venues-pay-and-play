@@ -1,6 +1,7 @@
 require 'date'
 require 'open-uri'
 require 'json'
+api_key = ENV.fetch('GOOGLE_API_KEY')
 
 #-----GOOGLE API-----
 url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20London&photo_reference=true&limit=20&key=#{api_key}"
