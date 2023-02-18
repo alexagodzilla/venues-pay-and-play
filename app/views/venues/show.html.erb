@@ -24,30 +24,32 @@
       </button>
     <% end %>
     <% if @venue.user == current_user %>
-      <button class="btn btn-danger mt-2" type="submit">
-        <%= link_to "Delete venue", venue_path(@venue), data: { turbo_method: :delete,
-        turbo_confirm: "Are you sure you want to delete your venue?" }, class: "text-white" %>
-      </button>
+      <%= link_to "Delete venue", venue_path(@venue), data: { turbo_method: :delete,
+        turbo_confirm: "Are you sure you want to delete your venue?" }, class: "button-blue" %>
     <% end %>
     </div>
     <div class="col-6" id="show-map">
     <div class="mt-5" id="map" style="width: 90%; height: 300px; margin-top: 50px;"
       data-controller="map"
       data-map-markers-value="<%= @marker.to_json %>"
-      data-map-api-key-value="<%= ENV.fetch('MAPBOX_API_KEY') %>">
+      data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
     </div>
     </div>
-    <h3 class="mt-5">Reviews</h3>
+    <h3 class="mt-5 mb-4">Reviews</h3>
     <% if @venue.reviews.present? %>
       <% @venue.reviews.each do |review| %>
-        <p><strong><%= review.rating %>⭐</strong></p>
+        <div class="d-flex">
+          <% x = review.rating %>
+            <% x.times do %>
+              <p>⭐</p>
+            <% end %>
+        </div>
         <p><%= review.comment %></p>
-        <% if current_user == review.booking.user %>
-          <button class="btn btn-danger mt-2" type="submit">
-            <%= link_to "Delete Review", review_path(review), data: { turbo_method: :delete,
-            turbo_confirm: "Are you sure you want to delete your review?" }, class: "text-white" %>
-          </button>
+        <p><% if current_user == review.booking.user %>
+          <%= link_to "Delete review", review_path(review), data: { turbo_method: :delete,
+          turbo_confirm: "Are you sure you want to delete your review?" } %></p>
         <% end %>
+        <hr>
       <% end %>
     <% else %>
     <p>There are currently no reviews for this venue.</p>
