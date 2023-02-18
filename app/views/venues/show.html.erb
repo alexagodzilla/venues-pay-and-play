@@ -13,6 +13,7 @@
     <p><i class="fa-solid fa-location-dot me-3"></i> <%= @venue.location%></p>
     <p><i class="fa-solid fa-users me-2"></i> Up to <%= @venue.size_of_band %></i></p>
     <p><i class="fa-solid fa-circle-info me-3"></i><%= @venue.description %></p>
+    <p><i class="fa-solid fa-wheelchair me-3"></i>Wheelchair accessible</p>
     <div class="mt-5">
       <%= link_to "Back to all venues", root_path, class: "button-blue" %>
       <%= link_to "Book venue", new_venue_booking_path(@venue), class: "button-blue" %>
@@ -51,4 +52,5 @@
     <% else %>
     <p>There are currently no reviews for this venue.</p>
   <% end %>
+</div>
 </div>

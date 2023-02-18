@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row mt-3">
     <%= render "form", { venue: @venue, booking: @booking } %>
     <div class="col-6 mt-4 ms-5">
       <h4>Selected venue: <%= @venue.name %></h4>
@@ -12,7 +12,7 @@
       <p class="mb-1"><%= @venue.location %></p><hr class="m-2">
       <p class="mb-1">Can accommodate up to <%= @venue.size_of_band %> musicians</p><hr class="m-2">
       <p class="mb-1"><%= @venue.description %></p>
-      <p><%= link_to "Back to venue", venue_path(@venue) %></p>
+      <p class="mt-4"><%= link_to "Back to venue", venue_path(@venue), class: "button-blue" %></p>
     </div>
   </div>
 </div>
