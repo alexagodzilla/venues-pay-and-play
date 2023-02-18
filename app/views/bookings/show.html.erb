@@ -35,4 +35,9 @@
   <% end %>
   </div>
   </div>
+      <div class="mt-5" id="map" style="width: 90%; height: 300px; margin-top: 50px;"
+      data-controller="map"
+      data-map-markers-value="<%= @marker.to_json %>"
+      data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    </div>
 </div>
