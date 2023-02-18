@@ -45,7 +45,7 @@
           <% if venue.photo.attached? %>
             <%= cl_image_tag(venue.photo.key) %>
           <% else %>
-            <%= image_tag(venue.pic_url) %>
+            <%= cl_image_tag(venue.pic_url) %>
           <% end %>
         <% end %>
         <div class="card-trip-infos">
