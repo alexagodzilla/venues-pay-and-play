@@ -20,6 +20,7 @@ class BookingsController < ApplicationController
     @booking.confirmed = true
     @booking.user = current_user
     @booking.venue = @venue
+    flash.now[:error] = "Venue already booked for this date - please try again"
     if @booking.save
       redirect_to booking_path(@booking), notice: 'Booking confirmed'
     else

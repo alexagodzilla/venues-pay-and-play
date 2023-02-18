@@ -1,25 +1,26 @@
 .booking-container {
   padding: 0;
 
+
   .booking-header {
     padding: -50px;
     font-size: 26px;
     font-weight: bold;
     margin-bottom: 5px;
     margin-top: 30px;
+    margin-bottom: 30px;
   }
-
 }
 
 .welcome-back {
   padding: 20px 0;
-  margin-left: 9px;
+  text-align: right;
 }
 
 .card {
   display: grid;
   grid-template-columns: 200px 1fr;
-  width: 45em;
+  width: 60em;
   overflow: hidden;
   height: 150px;
   padding: 0;
@@ -46,5 +47,8 @@
 
   .bolder-font {
     font-weight: bolder;
+  }
+  .text-muted {
+    margin-bottom: 10px;
   }
 }
