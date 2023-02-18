@@ -1,5 +1,5 @@
 <div class="container">
-  <form class="d-flex justify-content-center mt-4">
+  <%# <form class="d-flex justify-content-center mt-4">
     <div class="row">
       <div class="col-4">
         <div class="mt-4">
@@ -35,7 +35,7 @@
           <button class="button-blue" type="submit">Search</button>
         </div>
     </div>
-  </form>
+  </form> %>
   <div id="map" data-controller="map" data-map-markers-value="<%= @markers.to_json %>"
   data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
   <div class="row d-flex justify-content-center">
@@ -45,7 +45,7 @@
           <% if venue.photo.attached? %>
             <%= cl_image_tag(venue.photo.key) %>
           <% else %>
-            <%= image_tag(venue.pic_url) %>
+            <%= cl_image_tag(venue.pic_url) %>
           <% end %>
         <% end %>
         <div class="card-trip-infos">
