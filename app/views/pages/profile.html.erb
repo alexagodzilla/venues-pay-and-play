@@ -1,6 +1,6 @@
 <div class="container booking-container">
   <div class="row mt-5">
-      <h3 class="mb-0">Welcome back, <%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %>!</h3>
+      <h3 class="mb-0 welcome-back">Welcome back, <%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %>!</h3>
   </div>
 
   <% if current_user.venues.any? %>
@@ -16,7 +16,7 @@
               <% end %>
             <% end %>
             <div class="card-body .d-flex flex-column">
-              <h2 class="card-title"><strong><%= link_to venue.name, venue_path(venue.id), class: "text-dark" %></strong></h2>
+              <h5 class="card-title"><strong><%= link_to venue.name, venue_path(venue.id), class: "text-dark" %></strong></h5>
               <p class="card-text"><%= venue.location %></p>
             </div>
             </div>
@@ -35,7 +35,7 @@
               <%= image_tag(booking.venue.pic_url, crop: :thumb, gravity: :face, radius: 5) %>
             <% end %>
           <div class="card-body d-flex flex-column">
-            <h2 class="card-title"><strong><%= link_to venue.name, booking_path(booking), class: "text-dark" %></strong></h2>
+            <h5 class="card-title"><strong><%= link_to venue.name, booking_path(booking), class: "text-dark" %></strong></h5>
             <p class="card-text card-location"><%= venue.location %></p>
             <p class="card-text bolder-font"><%= booking.start_date.strftime("%d %B %Y") %> - <%= booking.end_date.strftime("%d %B %Y") %></p>
           </div>
