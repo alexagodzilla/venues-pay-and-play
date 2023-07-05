@@ -27,10 +27,12 @@
     </div>
   <% if @booking.end_date < Date.today %>
   <h3 id="review" class="mb-4 mt-5">Leave a review</h3>
-    <%= simple_form_for [@booking, @review] do |f| %>
-      <%= f.input :comment %>
-      <%= f.input :rating, collection: [1, 2, 3, 4, 5] %>
-      <%= f.button :submit, "Leave a review", class: "button-blue mt-2" %>
+    <%= form_with model: [@booking, @review] do |f| %>
+      <%= f.label :comment, "Comment" %>
+      <%= f.text_area :comment %>
+      <%= f.label :comment, "Rating out of 5" %>
+      <%= f.number_field :rating, min: 0, max: 5 %>
+      <%= f.submit "Leave a review", class: "button-blue mt-2" %>
     <% end %>
   <% end %>
   </div>
