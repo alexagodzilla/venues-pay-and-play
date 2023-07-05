@@ -1,24 +1,28 @@
 <div class="container">
-  <%= simple_form_for(@venue) do |f| %>
-    <%= f.error_notification %>
-    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-    <div class="form-inputs w-50">
-      <%= f.input :name%>
-      <%= f.input :price_per_day %>
-      <%= f.input :location, input_html: {data: {location_autocomplete_target: "location"}, class: "d-none"},
-                  wrapper_html: {data: {controller: "location-autocomplete", location_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}} %>
-      <%= f.input :size_of_band %>
-      <%= f.input :description %>
-      <%= f.input :phone_number %>
-      <%= f.input :photo, as: :file %>
-      <!-- <%= f.input :photos, as: :file, input_html: { multiple: true } %> -->
-    </div>
-
-    <div class="form-actions">
-      <button class="btn btn-primary" type="submit">
-        <%= f.button :submit, "Sign up", class: "text-white p-0" %>
-      </button>
+  <%= form_with model: @venue do |f| %>
+    <div class="col-2 mt-2">
+      <%= f.label :name, "Name" %>
+      <%= f.text_field :name %>
+      <%= f.label :price_per_day, "Price per day", class: "mt-4" %>
+      <%= f.number_field :price_per_day %>
+      <div data-controller="location-autocomplete", data-location-autocomplete-api-key-value="<%= ENV.fetch('MAPBOX_API_KEY') %>">
+        <%= f.label :location, "Location", class: "mt-4" %>
+        <%= f.text_field :location, data: { location_autocomplete_target: "location" } %>
+      </div>
+      <%= f.label :size_of_band, "Size of band", class: "mt-4" %>
+      <%= f.number_field :size_of_band %>
+      <%= f.label :name, "Description", class: "mt-4" %>
+      <%= f.text_area :description %>
+      <%= f.label :phone_number, "Phone number", class: "mt-4" %>
+      <%= f.text_field :phone_number %>
+      <%= f.label :photo, "Photo of venue", class: "mt-4" %>
+      <%= f.file_field :photo, as: :file %>
+      <!-- f.input :photos, as: :file, input_html: { multiple: true } -->
+      <%= f.submit "Add venue", class: "mt-4" %>
     </div>
   <% end %>
 </div>
+
+    <%# <%= f.error_notification %>
+    <%# <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+    <!-- fs to group: not sure where these came from or what they mean - let's discuss! -->
