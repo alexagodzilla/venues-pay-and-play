@@ -2,11 +2,8 @@ require 'date'
 require 'open-uri'
 require 'json'
 
-# need to source google alternative as api key expired - mapbox?
-
 #-----GOOGLE API-----
-url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20London&photo_reference=true&limit=20&key=#{ENV.fetch('GOOGLE_API_KEY')}"
-music_venues = JSON.parse(URI.open(url).read)['results']
+music_venues = JSON.parse(URI.open("https://maps.googleapis.com/maps/api/place/textsearch/json?query=music%20rehearsal%20venues%20in%20London&photo_reference=true&limit=20&key=#{ENV.fetch('GOOGLE_API_KEY')}").read)['results']
 
 #-----CLEANING DB-----
 puts "destroying review database"

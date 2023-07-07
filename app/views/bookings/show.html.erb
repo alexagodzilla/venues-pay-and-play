@@ -21,9 +21,8 @@
       <% if @booking.end_date >= Date.today %>
       <%= link_to "Edit booking", edit_booking_path(@booking), class: "button-blue" %>
       <%= link_to "Delete booking", booking_path(@booking), data: { turbo_method: :delete,
-        turbo_confirm: "Are you sure you want to delete your booking?" }, class: "button-blue" %>
+          turbo_confirm: "Are you sure you want to delete your booking?" }, class: "button-blue" %>
       <% end %>
-      <%# <%= link_to "Back to all venues", root_path, class: "button-blue" %>
     </div>
   <% if @booking.end_date < Date.today %>
   <h3 id="review" class="mb-4 mt-5">Leave a review</h3>

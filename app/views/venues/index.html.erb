@@ -1,11 +1,11 @@
 <div class="container">
   <div class="row">
     <form>
-      <label for="start" class="mt-2"><strong>Start date</strong></label>
+      <label for="start" class="mt-2"><b>Start date</b></label>
       <div class="col-2">
         <input class="form-control my-2" id="start" name="start" type="date">
       </div>
-      <label for="end"><strong>End date</strong></label>
+      <label for="end"><b>End date</b></label>
       <div class="col-2">
         <input class="form-control my-2" id="end" name="end" type="date">
       </div>
@@ -16,7 +16,7 @@
   data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
   <div class="row d-flex justify-content-center">
     <% @venues.each do |venue| %>
-      <div class="card-trip">
+      <div class="venue-card">
         <%= link_to venue_path(venue) do %>
           <% if venue.photo.attached? %>
             <%= cl_image_tag(venue.photo.key) %>
@@ -26,23 +26,21 @@
             <%= cl_image_tag("n91dnimxrk7oac5lykmw") %>
           <% end %>
         <% end %>
-        <div class="card-trip-infos">
-          <div>
-            <h2><%= link_to venue.name, venue_path(venue.id) %></h2>
-            <p><%= venue.location %></p>
-            <p id="text-bottom"><i id="people-icon" class="fa-solid fa-users"></i> <%= venue.size_of_band %> people |
-            <i id="price-icon" class="fa-solid fa-tag"></i>£<%= venue.price_per_day %> |
-            <% if venue.reviews.present? %>
-              <% overall_rating = 0 %>
-              <% venue.reviews.each do |review| %>
-                <% overall_rating += review.rating %>
-              <% end %>
-              <% sum = overall_rating / venue.reviews.count.to_f %>
-              <%= sum.round(1) %>⭐
-            <% else %>
-                No ratings</p>
+        <div class="venue-card-infos">
+          <h2><%= link_to venue.name, venue_path(venue.id) %></h2>
+          <p><%= venue.location %></p>
+          <p id="text-bottom"><i id="people-icon" class="fa-solid fa-users"></i> <%= venue.size_of_band %> people |
+          <i id="price-icon" class="fa-solid fa-tag"></i>£<%= venue.price_per_day %> |
+          <% if venue.reviews.present? %>
+            <% overall_rating = 0 %>
+            <% venue.reviews.each do |review| %>
+              <% overall_rating += review.rating %>
             <% end %>
-          </div>
+            <% sum = overall_rating / venue.reviews.count.to_f %>
+            <%= sum.round(1) %>⭐
+          <% else %>
+              No ratings</p>
+          <% end %>
         </div>
       </div>
     <% end %>
