@@ -59,7 +59,7 @@ class VenuesController < ApplicationController
       {
         lat: venue.latitude,
         lng: venue.longitude,
-        info_window_html: render_to_string(partial: "popup", locals: {venue: venue}),
+        info_window_html: render_to_string(partial: "popup", locals: { venue: }),
         marker_html: render_to_string(partial: "marker")
       }
     end
@@ -73,7 +73,6 @@ class VenuesController < ApplicationController
     params.require(:venue).permit(:name, :price_per_day, :location, :size_of_band, :description, :phone_number, :photo)
   end
 
-  # this can be re-factored after the api is working again and so can be tested
   def compare_dates(date_range)
     Venue.all.each do |venue|
       available = true

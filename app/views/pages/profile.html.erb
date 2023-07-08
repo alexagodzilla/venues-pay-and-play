@@ -3,26 +3,26 @@
     <div>
       <h3 class="mb-0 welcome-back">Welcome back, <%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %>!</h3>
     </div>
-  <% if current_user.venues.any? %>
-    <h2>My venues</h2>
-    <% @venues.each do |venue| %>
-      <div class="row my-5">
-        <div class="card">
-          <%= link_to venue_path(venue) do %>
-            <% if venue.photo.attached? %>
-              <%= cl_image_tag(venue.photo.key, crop: :thumb, gravity: :face, radius: 5) %>
-            <% else %>
-              <%= image_tag(venue.pic_url, crop: :thumb, gravity: :face, radius: 5) %>
+    <% if current_user.venues.any? %>
+      <h2>My venues</h2>
+      <% @venues.each do |venue| %>
+        <div class="row my-5">
+          <div class="card">
+            <%= link_to venue_path(venue) do %>
+              <% if venue.photo.attached? %>
+                <%= cl_image_tag(venue.photo.key, crop: :thumb, gravity: :face, radius: 5) %>
+              <% else %>
+                <%= image_tag(venue.pic_url, crop: :thumb, gravity: :face, radius: 5) %>
+              <% end %>
             <% end %>
-          <% end %>
-          <div class="card-body .d-flex flex-column">
-            <h5 class="card-title"><strong><%= link_to venue.name, venue_path(venue.id), class: "text-dark" %></strong></h5>
-            <p class="card-text"><%= venue.location %></p>
+            <div class="card-body .d-flex flex-column">
+              <h5 class="card-title"><strong><%= link_to venue.name, venue_path(venue.id), class: "text-dark" %></strong></h5>
+              <p class="card-text"><%= venue.location %></p>
+            </div>
           </div>
         </div>
-      </div>
       <% end %>
-  <% end %>
+    <% end %>
 
   <h2 class="booking-header">Future bookings</h2>
     <% @future_bookings.each do |booking| %>
