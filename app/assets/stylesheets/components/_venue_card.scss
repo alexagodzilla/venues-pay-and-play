@@ -7,45 +7,44 @@
   border-radius: 4px;
   height: 300px;
   position: relative;
+
+  h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  p {
+    font-size: 13px;
+    opacity: .8;
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color:black;
+    opacity: .9;
+
+    img {
+      height: 150px;
+      width: 85%;
+      object-fit: cover;
+      border-radius: 4px;
+      margin: 8px auto;
+      display: block;
+    }
+  }
+
+  .venue-card-infos {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    // position: relative;
+  }
 }
 
-.venue-card > a > img {
-  height: 150px;
-  width: 85%;
-  object-fit: cover;
-  border-radius: 4px;
-  margin: 8px auto;
-  display: block;
-}
-
-.venue-card h2 {
-  font-size: 16px;
-  font-weight: bold;
-  margin: 0;
-}
-
-.venue-card p {
-  font-size: 13px;
-  opacity: .8;
-  margin: 0;
-}
-
-.venue-card a {
-  text-decoration: none;
-  color:black;
-  opacity: .9;
-}
-
-.venue-card .venue-card-infos {
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  // position: relative;
-}
-
-#price-icon
-{
+#price-icon {
   margin-right: 5px;
 }
 
