@@ -8,11 +8,26 @@
   padding: 0px 50px;
   color: rgba(0,0,0,0.3);
   margin-top: auto;
+
+  .fa-heart {
+    color: #D23333;
+  }
 }
 
 .footer-links {
   display: flex;
   align-items: center;
+
+  a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    padding: 0px 10px;
+
+    &:hover {
+      opacity: 0.8;
+      transition: 0.2s;
+    }
+  }
 }
 
 .icons {
@@ -20,20 +35,6 @@
   text-decoration: none;
   font-size: 22px;
   padding: 0px 10px;
-}
-
-.footer-links a {
-  color: rgb(255, 255, 255);
-  text-decoration: none;
-  padding: 0px 10px;
-}
-
-.footer-links a:hover {
-  opacity: 0.75;
-}
-
-.footer .fa-heart {
-  color: #D23333;
 }
 
 .footer-copyright {

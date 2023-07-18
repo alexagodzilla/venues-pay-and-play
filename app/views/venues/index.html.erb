@@ -27,13 +27,15 @@
           <% end %>
         <% end %>
         <div class="venue-card-infos">
-          <h2><%= link_to venue.name, venue_path(venue.id) %></h2>
-          <p><%= venue.location %></p>
-          <p id="text-bottom">
-            <i id="people-icon" class="fa-solid fa-users"></i> <%= venue.size_of_band %> people |
-            <i id="price-icon" class="fa-solid fa-tag"></i>£<%= venue.price_per_day %> |
-            <%= venue.reviews.present? ? "#{average_rating(venue.reviews)}⭐" : "No ratings" %>
-          </p>
+          <div>
+            <h2><%= link_to venue.name, venue_path(venue.id) %></h2>
+            <p><%= venue.location %></p>
+            <p id="text-bottom">
+              <i id="people-icon" class="fa-solid fa-users"></i> <%= venue.size_of_band %> people |
+              <i id="price-icon" class="fa-solid fa-tag"></i>£<%= venue.price_per_day %> |
+              <%= venue.reviews.present? ? "#{average_rating(venue.reviews)}⭐" : "No ratings" %>
+            </p>
+          </div>
         </div>
       </div>
     <% end %>
