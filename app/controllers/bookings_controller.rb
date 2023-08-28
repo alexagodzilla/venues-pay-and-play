@@ -63,7 +63,7 @@ class BookingsController < ApplicationController
       {
         lat: venue.latitude,
         lng: venue.longitude,
-        info_window_html: render_to_string(partial: "venues/popup", locals: { venue: venue }),
+        info_window_html: render_to_string(partial: "venues/popup", locals: { venue: }),
         marker_html: render_to_string(partial: "venues/marker")
       }
     end
