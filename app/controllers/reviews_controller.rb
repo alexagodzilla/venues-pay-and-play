@@ -15,7 +15,6 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @venue = @review.booking.venue
     @review.destroy
-    # flash[:notice] = "Review deleted"
     redirect_to venue_path(@venue), notice: "Review deleted"
   end
 
